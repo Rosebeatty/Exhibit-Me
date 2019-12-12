@@ -5,11 +5,17 @@ import { withAuth } from '../lib/AuthProvider';
 import axios from 'axios'
 
 class SearchBar extends Component {
+    state = {
+        input: ""
+    }
 
+    handleInput = () => {
+        
+    }
 
     render() {
         return (
-<div></div>
+    <div></div>
         )
     }
 
