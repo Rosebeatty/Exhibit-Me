@@ -6,6 +6,7 @@ import Signup from './pages/Signup';
 import Login from './pages/Login';
 import Home from './pages/Home';
 import Profile from './pages/Profile';
+import UserPage from './pages/UserPage';
 import Navbar from './components/Navbar';
 
 import AnonRoute from './components/AnonRoute';
@@ -19,8 +20,9 @@ class App extends Component {
         <Switch>
           <AnonRoute exact path="/signup" component={Signup} />
           <AnonRoute exact path="/login" component={Login} />
-          <PrivateRoute exact path="/home" component={Home} />
+          <PrivateRoute exact path="/" component={Home} />
           <PrivateRoute exact path="/profile" component={Profile} />
+          <PrivateRoute exact path="/:id" component={UserPage} />
         </Switch>
       </div>
     );
