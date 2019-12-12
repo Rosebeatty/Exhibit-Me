@@ -7,11 +7,60 @@ import Comments from './Comments'
 
 class Profile extends Component {
     state = {
-        username: "",
-        email: "",
-        space_name: "",
-        theme: ""
+       
     }
+
+    onChangeHandler = e =>{
+        this.setState({
+         file: e.target.files[0],
+         
+        })
+    }    
+    handleSubmit = (e) => {
+        e.preventDefault();
+        let { file } = this.state
+        let formData = new FormData();
+        formData.append('file', file);
+        const config = {
+          headers: {
+            'content-type': 'multipart/form-data'
+          }
+        }
+      
+        axios.post("http://localhost:5000/users/upload", formData, config)
+            .then( (res) => {
+             
+                alert("The file was successfully uploaded");
+            }).catch((error) => {
+        });
+      
+
+    const theFile = this.fileUpload.files[0];
+    this.setState({ path: "/" + theFile.name });
+
+    console.log(theFile)
+    // var userId = file.
+
+    var assetEl = document.createElement('a-asset-item');
+    assetEl.setAttribute('src', "http://localhost:5000/" + file.name);
+    assetEl.setAttribute('id', file.name);
+    document.getElementById('assets-id').appendChild(assetEl);
+    
+    var gltfModelId = '#' + assetEl.id
+    console.log(assetEl.id);
+     
+    var entityEl = document.createElement('a-entity');
+    entityEl.setAttribute('gltf-model', gltfModelId);
+    entityEl.setAttribute('sound', "src: url(12 Rokthaboat[Twrk].mp3); autoplay: true");
+    document.getElementById('scene').appendChild(entityEl);
+    console.log(entityEl)
+
+
+    var textEl = document.createElement('a-text');
+    textEl.setAttribute('text', "value: Hello");
+    textEl.setAttribute('text', "width: 2.5");
+    textEl.setAttribute('position', "20, 50, 20");
+    }  
 
     showForm = () => {
         var editProfileForm = document.getElementById('edit-profile-form')
@@ -26,20 +75,20 @@ class Profile extends Component {
     handleInput = (event) => {
         const { username, email, space_name, theme } = event.target;
 
-        this.setState(username, email, space_name, theme)
+        this.setState({username, email, space_name, theme})
     }
 
     editProfile = (e) => {
         e.preventDefault()
-
+        console.log(this.props.user)
         // const { username, email, space_name, theme } = this.state
-        const { id } = this.props
+        const id  = this.props.user._id
 
-        axios.post(`http://localhost:5000/users/update/${id}`)
+        axios.put(`http://localhost:5000/users/update/${id}`)
             .then((response) => {
-                console.log(response)
-                const user = response.data;
-                this.setState({username: user.username, email: user.email, space_name: user.space_name, theme: user.theme})
+                console.log(response.data)
+                // const user = response.data;
+                // this.setState({username: user.username, email: user.email, space_name: user.space_name, theme: user.theme})
             })
             .catch((err) => {
                 console.log(err)
