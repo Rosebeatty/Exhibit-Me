@@ -6,21 +6,42 @@ import axios from "axios";
 class Comments extends Component {
     state= {
         comments: [],
-        comment:"",
-        input: ""
+        input: "",
+        commentId: []
     }
   
 
-    handleInput = e => {
+    handleInput = (e) => {
         const { value } = e.target;
         this.setState({ input: value });
       };
 
 
+    // getComments = () => {
+    //     console.log(this.props)
+    //     const { userId } = this.props.user._id
+    //     // const { commentId} = this.props.user.comments
+
+    //     axios
+    //       .get(`http://localhost:5000/comments/${userId}`)
+    //       .then(response => {
+    //         console.log("Hello", response);
+    //         const comment = response.data;
+    //         this.setState({
+    //           comments: comment
+             
+    //         });
+    //         console.log(this.state.comments)
+    //       })
+    //       .catch(err => {
+    //         console.log(err);
+    //       });
+    // } 
+
     handleSubmit = (e) => {
     e.preventDefault();
 
-    const  comment  = this.state.input;
+    const comment  = this.state.input;
 
     const userId = this.props.user._id;
 
@@ -31,7 +52,9 @@ class Comments extends Component {
       .then(response => {
         console.log("Hello", response.data);
         const user = response.data;
-        this.setState({ comments: user.comment });
+        this.setState({ comments: user.comments });
+        // console.log(this.state.commentId)
+        // this.getComments()
       })
       .catch(err => {
         console.log(err);
@@ -41,22 +64,22 @@ class Comments extends Component {
     }
 
     componentDidMount() {
-        console.log(this.props);
-        const id = this.props.user._id;
-        axios
-          .get(`http://localhost:5000/users/${id}`)
-          .then(response => {
-            console.log("Hello", response.data);
-            const user = response.data;
-            this.setState({
-              comments: user.comments
+        // console.log(this.props);
+        // const id = this.props.user._id;
+        // axios
+        //   .get(`http://localhost:5000/users/${id}`)
+        //   .then(response => {
+        //     console.log("Hello", response);
+        //     const user = response.data;
+        //     this.setState({
+        //       comments: user.comments
              
-            });
-            console.log(this.state.comments)
-          })
-          .catch(err => {
-            console.log(err);
-          });
+        //     });
+        //     // console.log(this.state.comments)
+        //   })
+        //   .catch(err => {
+        //     console.log(err);
+        //   });
       }
 
   
@@ -68,21 +91,21 @@ class Comments extends Component {
           <form onSubmit={this.handleSubmit}>
             <input onChange={this.handleInput} type="text" name="comment" value={this.state.input} placeholder="Add a public comment..."></input>
             <button>COMMENT</button>
-            <button>CANCEL</button>
+            {/* <button >CANCEL</button> */}
           </form>
-            <div>{this.state.comments}</div>
+         
 
-          {/* <div id="user-name">
+          <div>
           {this.state.comments.map(user => {
             return (
-              <div key={user._id} className="one-user">
+              <div key={user._id} className="comment">
                 <Link to={`/${user._id}`}>
                   <h3>{user.comment}</h3>
                 </Link>
               </div>
             );
           })}
-        </div> */}
+        </div>
 
           <p>Rose 1 week ago</p>
           <p>

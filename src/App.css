@@ -210,6 +210,10 @@ margin:20px;
   flex-direction: row;
 }
 
+.comment h3 {
+  color:black;
+}
+
 nav {
   display:flex;
   flex-direction: row;
