@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
-import { withAuth } from '../lib/AuthProvider';
+import React, { Component } from "react";
+import { withAuth } from "../lib/AuthProvider";
 
 class Login extends Component {
-  state = { username: '', password: '' };
+  state = { username: "", password: "" };
 
   handleFormSubmit = event => {
     event.preventDefault();

@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import { withAuth } from '../lib/AuthProvider';
+import React, { Component } from "react";
+import { Link } from "react-router-dom";
+import { withAuth } from "../lib/AuthProvider";
 
 class Signup extends Component {
-  state = { username: '', password: '', space_name: '', theme: '', email: '' };
+  state = { username: "", password: "", space_name: "", theme: "", email: "" };
 
   handleFormSubmit = event => {
     event.preventDefault();
@@ -11,7 +11,6 @@ class Signup extends Component {
     //  console.log('Signup -> form submit', { username, password });
     this.props.signup({ username, password, space_name, theme, email }); // props.signup is Provided by withAuth() and Context API
     console.log(space_name);
-    
   };
 
   handleChange = event => {
@@ -69,7 +68,7 @@ class Signup extends Component {
         </form>
 
         <p>Already have account?</p>
-        <Link to={'/login'}> Login</Link>
+        <Link to={"/login"}> Login</Link>
       </div>
     );
   }
