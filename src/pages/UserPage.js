@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import VRScene from './../components/VRScene'
 import Comments from './../components/Comments'
 import axios from 'axios'
+import { withAuth } from '../lib/AuthProvider';
+import Navbar from '../components/Navbar'
 
 class UserPage extends Component {
   state = {
@@ -29,8 +31,9 @@ class UserPage extends Component {
 render() {
     return (
       <div>
+      <Navbar />
      <h2>Welcome to {this.state.user.username}'s space </h2>
-    <VRScene />
+    <VRScene getUser={this.getUser}/>
    
     <Comments />
       </div>
@@ -38,4 +41,4 @@ render() {
   }
 }
 
-export default UserPage;
+export default withAuth(UserPage);

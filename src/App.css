@@ -11,6 +11,15 @@
   font-family: arial;
   margin-bottom:0;
   min-width:100vw;
+
+
+  /* height: 500vh; */
+
+  /* Create the parallax scrolling effect */
+  /* background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover; */
 }
 
 .App-logo {
@@ -236,6 +245,23 @@ nav {
   color:#2b90d9;
   font-size:20px;
 
+}
+
+.one-user {
+  display:flex;
+  flex-direction:column;
+  padding:30px 20px ;
+  text-align:center;
+
+}
+
+#user-name {
+  display:flex;
+  flex-direction:row;
+  justify-content:center;
+  align-items:center;
+  margin-top:50px;
+  padding-left:0;
 }
 
 @keyframes App-logo-spin {

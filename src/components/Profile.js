@@ -3,11 +3,14 @@ import { Link } from 'react-router-dom';
 import { withAuth } from '../lib/AuthProvider';
 import axios from 'axios'
 import Comments from './Comments'
-
+import 'aframe-extras'
 
 class Profile extends Component {
     state = {
-       
+       username: "",
+       email: "",
+       space_name: "",
+       theme: ""
     }
 
     onChangeHandler = e =>{
@@ -15,7 +18,8 @@ class Profile extends Component {
          file: e.target.files[0],
          
         })
-    }    
+    } 
+
     handleSubmit = (e) => {
         e.preventDefault();
         let { file } = this.state
@@ -51,10 +55,13 @@ class Profile extends Component {
      
     var entityEl = document.createElement('a-entity');
     entityEl.setAttribute('gltf-model', gltfModelId);
+    entityEl.setAttribute('id', 'rig');
+    entityEl.setAttribute('movement-controls');
+    entityEl.setAttribute('look-controls', 'pointerLockEnabled: true')
     entityEl.setAttribute('sound', "src: url(12 Rokthaboat[Twrk].mp3); autoplay: true");
     document.getElementById('scene').appendChild(entityEl);
     console.log(entityEl)
-
+   
 
     var textEl = document.createElement('a-text');
     textEl.setAttribute('text', "value: Hello");
@@ -65,30 +72,54 @@ class Profile extends Component {
     showForm = () => {
         var editProfileForm = document.getElementById('edit-profile-form')
         editProfileForm.style.display = 'block';
+        var userDetails = document.getElementById('user-details')
+        userDetails.style.display = 'none';
     }
 
-    hideForm = () => {
-        var hideProfileForm = document.getElementById('edit-profile-form')
-        hideProfileForm.style.display = 'none';
-    }
 
     handleInput = (event) => {
-        const { username, email, space_name, theme } = event.target;
-
-        this.setState({username, email, space_name, theme})
+        const { name, value } = event.target;
+        this.setState({ [name]: value }); 
     }
+
 
     editProfile = (e) => {
         e.preventDefault()
-        console.log(this.props.user)
-        // const { username, email, space_name, theme } = this.state
-        const id  = this.props.user._id
+        let hideProfileForm = document.getElementById('edit-profile-form')
+        hideProfileForm.style.display = 'none';
+        let userDetails = document.getElementById('user-details')
+        userDetails.style.display = 'block';
 
-        axios.put(`http://localhost:5000/users/update/${id}`)
+        console.log(this.props.user)
+        const { username, email, space_name, theme } = this.state
+        
+
+            const id  = this.props.user._id
+
+
+            axios.put(`http://localhost:5000/users/update/${id}`, {
+                 username, email, space_name, theme
+            })
+                .then((response) => {
+                    console.log("Hello", response.data)
+                    // const user = response.data;
+                    this.setState({username, email, space_name, theme})
+                })
+                .catch((err) => {
+                    console.log(err)
+                })
+           
+        }
+          
+
+    componentDidMount() {
+        console.log(this.props)
+        const id  = this.props.user._id
+        axios.get(`http://localhost:5000/users/${id}`)
             .then((response) => {
-                console.log(response.data)
-                // const user = response.data;
-                // this.setState({username: user.username, email: user.email, space_name: user.space_name, theme: user.theme})
+                console.log("Hello", response.data)
+                const user = response.data;
+                this.setState({username: user.username, email: user.email, space_name: user.space_name, theme: user.theme})
             })
             .catch((err) => {
                 console.log(err)
@@ -101,22 +132,25 @@ class Profile extends Component {
             <div id="edit-wrapper">
             <div className="container env">
                 <a onClick={this.showForm}><h2>Edit Profile</h2></a>
-                <h3>Username: <span>{this.state.username}</span> </h3>
-                <h3>Email: <span>rose.beatty@gmail.com</span></h3>
-                <h3>Space Name: <span>Nature Space</span></h3>
-                <h3>Theme: <span>#Nature</span></h3>
+                <div id="user-details">
+                    <h3>Username: <span>{this.state.username}</span> </h3>
+                    <h3>Email: <span>{this.state.email}</span></h3>
+                    <h3>Space Name: <span>{this.state.space_name}</span></h3>
+                    <h3>Theme: <span>{this.state.theme}</span></h3>
+                </div>
 
                 <form id="edit-profile-form" onSubmit={this.editProfile}>
-                <label>Username:</label>
-                <input onChange={this.handleInput} type="text"></input>
-                <label>Email:</label>
-                <input onChange={this.handleInput} type="text"></input>
-                <label>Space Name:</label>
-                <input onChange={this.handleInput} type="text"></input>
-                <label>Theme:</label>
-                <input onChange={this.handleInput} type="text"></input>
-                <button onClick={this.hideForm}>Make Changes</button>
+                    <label>Username:</label>
+                    <input  type="text" value={this.state.username} name="username" onChange={this.handleInput}></input>
+                    <label>Email:</label>
+                    <input  type="email" value={this.state.email} name="email" onChange={this.handleInput}></input>
+                    <label>Space Name:</label>
+                    <input  type="text" value={this.state.space_name} name="space_name" onChange={this.handleInput}></input>
+                    <label>Theme:</label>
+                    <input type="text" value={this.state.theme} name="theme" onChange={this.handleInput}></input>
+                    <button>Save</button>
                 </form>
+
             </div>
             <div className = "container env">
                 <h2>Upload 3D object (.glb format)</h2>
