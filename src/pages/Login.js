@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { withAuth } from "../lib/AuthProvider";
+import Navbar from "../components/Navbar";
 
 class Login extends Component {
   state = { username: "", password: "" };
@@ -20,6 +21,8 @@ class Login extends Component {
 
     return (
       <div>
+      <Navbar />
+      <div style={{backgroundColor:'rgba(255, 255, 255, 0.04)'}}>
         <h1>Login</h1>
         <form onSubmit={this.handleFormSubmit}>
           <label>Username:</label>
@@ -40,6 +43,7 @@ class Login extends Component {
 
           <input type="submit" value="Login" />
         </form>
+        </div>
       </div>
     );
   }

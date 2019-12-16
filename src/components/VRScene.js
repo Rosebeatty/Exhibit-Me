@@ -8,8 +8,8 @@ import axios from "axios";
 
 class VRScene extends Component {
   state = {
-    file: null,
-    path: "",
+    // file: null,
+    // path: "",
     theme: "",
     space_name: "",
     username: ""
@@ -30,6 +30,7 @@ class VRScene extends Component {
           space_name: user.space_name,
           theme: user.theme
         });
+       
       })
       .catch(err => {
         console.log(err);
@@ -40,7 +41,7 @@ class VRScene extends Component {
 
   render() {
     console.log(this.props);
-    console.log(this.state.path);
+    
     return (
       <div className="vrscene">
         <div id="myEmbeddedScene">
@@ -49,7 +50,7 @@ class VRScene extends Component {
             <a-assets id="assets-id">
               <img id="sky" src="bali.jpg"></img>
             </a-assets>
-            <a-camera position="0 100 0"></a-camera>
+            <a-camera position="200 100 0"></a-camera>
 
             <a-sky src="#sky"></a-sky>
 
@@ -57,6 +58,7 @@ class VRScene extends Component {
           </Scene>
           <h2 id="vrscene-theme">Theme: {this.state.theme}</h2>
         </div>
+       
       </div>
     );
   }

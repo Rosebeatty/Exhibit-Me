@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { withAuth } from "../lib/AuthProvider";
+import Navbar from "../components/Navbar";
 
 class Signup extends Component {
   state = { username: "", password: "", space_name: "", theme: "", email: "" };
@@ -22,6 +23,8 @@ class Signup extends Component {
     const { username, password, space_name, theme, email } = this.state;
     return (
       <div>
+       <Navbar />
+       <div style={{backgroundColor:'rgba(255, 255, 255, 0.04)'}}>
         <h1>Sign Up</h1>
         <form onSubmit={this.handleFormSubmit}>
           <label>Username:</label>
@@ -69,6 +72,7 @@ class Signup extends Component {
 
         <p>Already have account?</p>
         <Link to={"/login"}> Login</Link>
+        </div>
       </div>
     );
   }

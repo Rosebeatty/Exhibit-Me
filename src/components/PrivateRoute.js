@@ -1,13 +1,16 @@
-import React from 'react';
-import { Route, Redirect } from 'react-router-dom';
-import { withAuth } from '../lib/AuthProvider';
+import React from "react";
+import { Route, Redirect } from "react-router-dom";
+import { withAuth } from "../lib/AuthProvider";
 
-function PrivateRoute({ component: Component, isLoggedin, isLoading, ...rest }) {
-
+function PrivateRoute({
+  component: Component,
+  isLoggedin,
+  isLoading,
+  ...rest
+}) {
   if (isLoading) {
-    return <h1>Loading</h1>
-  }
-  else {
+    return <h1>Loading</h1>;
+  } else {
     return (
       <Route
         {...rest}

@@ -1,111 +1,116 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { withAuth } from "../lib/AuthProvider";
+import Comment from "../lib/comments-service";
 import axios from "axios";
+import AddComment from "./AddComment";
+
 
 class Comments extends Component {
-    state= {
-        comments: [],
-        input: "",
-        commentId: []
-    }
-  
+  state = {
+    comments: [],
+    input: "",
+    commentId: [],
+    initialComments: []
+  };
 
-    handleInput = (e) => {
-        const { value } = e.target;
-        this.setState({ input: value });
-      };
+  componentDidMount = () => {
+    // console.log(this.props);
 
+    this.getComments();
+    console.log(this.props.userInfo);
+    console.log(this.state.comments);
+  };
 
-    // getComments = () => {
-    //     console.log(this.props)
-    //     const { userId } = this.props.user._id
-    //     // const { commentId} = this.props.user.comments
-
-    //     axios
-    //       .get(`http://localhost:5000/comments/${userId}`)
-    //       .then(response => {
-    //         console.log("Hello", response);
-    //         const comment = response.data;
-    //         this.setState({
-    //           comments: comment
-             
-    //         });
-    //         console.log(this.state.comments)
-    //       })
-    //       .catch(err => {
-    //         console.log(err);
-    //       });
-    // } 
-
-    handleSubmit = (e) => {
-    e.preventDefault();
-
-    const comment  = this.state.input;
-
-    const userId = this.props.user._id;
+  getComments = () => {
+    const id = this.props.user._id;
 
     axios
-      .post(`http://localhost:5000/comments/create/${userId}`, {
-        comment, userId
-      })
+      .get(`http://localhost:5000/comments`)
       .then(response => {
-        console.log("Hello", response.data);
-        const user = response.data;
-        this.setState({ comments: user.comments });
-        // console.log(this.state.commentId)
-        // this.getComments()
+        //PROBLEM
+        const userData = response;
+        this.setState({ initialComments: userData.data });
+        console.log(userData.data);
+        console.log(this.state.initialComments);
       })
       .catch(err => {
         console.log(err);
       });
+  };
 
+  deleteComment = (id) => {
+   
+    // const newList = this.state.initialComments;
+    console.log(id)
+    const commentId = id
+    console.log(commentId)
 
-    }
+    const newList = this.state.initialComments;
+    let newCommentsList = newList.filter(user => user._id !== commentId);
+   this.setState({initialComments: newCommentsList})
 
-    componentDidMount() {
-        // console.log(this.props);
-        // const id = this.props.user._id;
-        // axios
-        //   .get(`http://localhost:5000/users/${id}`)
-        //   .then(response => {
-        //     console.log("Hello", response);
-        //     const user = response.data;
-        //     this.setState({
-        //       comments: user.comments
-             
-        //     });
-        //     // console.log(this.state.comments)
-        //   })
-        //   .catch(err => {
-        //     console.log(err);
-        //   });
-      }
+  axios.delete(`http://localhost:5000/comments/delete/${commentId}`)
+  .then(response => {
+    
+      console.log("Hello", response);
+      const user = response.data;
+      console.log(user)
+    //   this.setState({initalComments: user.comments})
+  })
+  .catch(err => {
+      console.log(err);
+    });
 
-  
-    render() {
+    
+};
+
+  // updateComment = () => {
+  //     const comment  = this.state.input;
+
+  //     const userId = this.props.user._id;
+
+  //     axios.patch(`http://localhost:5000/comments/update/${userId}`, {
+  //         comment, userId
+  //     })
+  //     .then(response => {
+  //         console.log("Hello", response.data);
+  //         const user = response.data;
+  //         this.setState({comments: user.comments})
+  //     })
+  //     .catch(err => {
+  //         console.log(err);
+  //       });
+
+  //}
+
+  render() {
+    // const {comments} = this.state;
+    const commentsList = this.state.initialComments.reverse();
+
     return (
       <div id="comments-wrapper">
         <h3>400 Comments</h3>
         <div className="comment">
-          <form onSubmit={this.handleSubmit}>
-            <input onChange={this.handleInput} type="text" name="comment" value={this.state.input} placeholder="Add a public comment..."></input>
-            <button>COMMENT</button>
-            {/* <button >CANCEL</button> */}
-          </form>
-         
-
+          <AddComment getComments={this.getComments} />
           <div>
-          {this.state.comments.map(user => {
-            return (
-              <div key={user._id} className="comment">
-                <Link to={`/${user._id}`}>
+            {commentsList.map((user, index) => {
+              return (
+                <div key={user._id} className="comment">
                   <h3>{user.comment}</h3>
-                </Link>
-              </div>
-            );
-          })}
-        </div>
+                  <hr />
+                
+                  <button onClick={(e) => this.deleteComment(user._id)}>Delete Button</button>
+                  <hr />
+
+                  {/* <DeleteComment getComments={this.getComments}/> */}
+
+                  {/* <button onClick={this.deleteComment}>Delete Button</button>
+                <hr /> */}
+                </div>
+              );
+            })}
+          </div>
 
           <p>Rose 1 week ago</p>
           <p>

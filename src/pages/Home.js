@@ -39,18 +39,23 @@ class Home extends Component {
     return (
       <div>
         <Navbar filterUsers={this.filterUsers} />
+        <div style={{backgroundColor:'rgba(255, 255, 255, 0.04)'}}>
         <h1>Welcome to Exhibit Me</h1>
         <div id="user-name">
           {this.state.selected.map(user => {
             return (
               <div key={user._id} className="one-user">
                 <Link to={`/${user._id}`}>
+                <h3>{user.theme}</h3>
                   <h3>{user.username}</h3>
                 </Link>
               </div>
+             
             );
           })}
+          </div>
         </div>
+        <footer>Rose Beatty 2019</footer>
       </div>
     );
   }

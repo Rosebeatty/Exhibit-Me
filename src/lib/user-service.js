@@ -1,34 +1,38 @@
 import axios from 'axios';
 
-class Example {
+class Users {
   constructor() {
-    this.example = axios.create({
-      baseURL: 'http://localhost:5000/examples',
+    this.users = axios.create({
+      baseURL: 'http://localhost:5000/users',
       withCredentials: true,
     });
   }
 
   getAll() {
-    return this.example
-              .get()
+    return this.users
+              .get(`/users`)
               .then(({ data }) => data);
   }
 
   getOneById(id) {
-    return this.example
+    return this.users
               .get(`/${id}`)
               .then(({ data }) => data);
   }
 }
 
-// examplesService.getAll()
+
+
+
+// commentssService.getAll()
 //   .then( (response) => response.data )
 //   .catch( (err) => console.log(err));
 
-// examplesService.getOneById( idString )
+// commentssService.getOneById( idString )
 //   .then( ( { data } ) => data)
 //   .catch( (err) => console.log(err));
 
-const exampleService = new Example();
 
-export default exampleService;
+const users = new Users();
+
+export default Users;

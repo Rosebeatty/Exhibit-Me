@@ -5,8 +5,10 @@
 .App {
   text-align: center;
   padding: 0;
-  background-color:#212121;
-  min-height:100vh;
+  background-color: rgba(0, 0, 0, 0.897); /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #000000, #434343); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to center, #000000, #000000); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  min-height:200vh;
   color:#fff;
   font-family: arial;
   margin-bottom:0;
@@ -34,7 +36,7 @@
 }
 
 .App-header {
-  background-color: #282c34;
+  background-color: #282c342f;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -50,8 +52,8 @@
 
 
 form {
-  padding: 10px 50px;
-  border: 2px solid black;
+  padding: 10px 20px;
+  border: none;
   border-radius: 8px;
   display: inline-flex;
   flex-direction: column;
@@ -59,7 +61,7 @@ form {
 
 input {
   height: 30px;
-  font-size: 18px;
+  font-size: 16px;
   text-align: center;
 }
 
@@ -99,7 +101,7 @@ li {
 }
 
 .nav-style li {
-  padding:20px 25px;
+  padding:23px 25px;
   display:flex;
   align-items: center;
  
@@ -125,16 +127,29 @@ li {
 
 .container {
   width: 88vw;
-  padding: 0px 0px;
-
-  margin:100px auto;
-  background-color:#21212188; 
+  padding:2em 0em;
+  border-radius:5px;
+  color:black;
+  margin:70px auto;
+  background-color:#f6f4f7;
+  -webkit-box-shadow: 4px 4px 3px 2px rgba(255,255,255,0.2);
+  -moz-box-shadow: 4px 4px 3px 2px rgba(255,255,255,0.2);
+  box-shadow: 4px 4px 3px 2px rgba(255,255,255,0.2);
+  display:flex;
+  flex-direction:row;
 }
+
 
 #edit-wrapper {
   display:flex;
   width:80%;
   margin:0px auto;
+  
+}
+
+.profile-details {
+  margin:0 auto;
+  font-size:14px;
 }
 
 #edit-profile-form {
@@ -143,7 +158,7 @@ li {
 
 .env {
   display:flex;
-  flex-direction:column;
+  flex-direction:row;
   width:45%;
 }
 
@@ -165,12 +180,8 @@ li {
   margin-bottom:25px;
 }
 
-#comments-wrapper {
-  height:30vh;
-  width:75%;
-  margin:0 auto;
-  background-color:#dbe3e8
-}
+
+
 
 #search-input {
   width:22vw;
@@ -184,7 +195,25 @@ li {
 #comments-wrapper {
   color:black;
   text-align:left;
- padding:30px;
+  padding:30px;
+  width:75%;
+  margin:0 auto;
+  background-color:#F6F4F7;
+  border-radius:5px;
+  -webkit-box-shadow: 4px 4px 3px 2px rgba(255,255,255,0.2);
+  -moz-box-shadow: 4px 4px 3px 2px rgba(255,255,255,0.2);
+  box-shadow: 4px 4px 3px 2px rgba(255,255,255,0.2);
+}
+
+#comments-wrapper form {
+  display:flex;
+  flex-direction:row;
+  border:none;
+}
+
+
+#comments-wrapper input {
+  width:70%;
 }
 
 .comment {
@@ -197,7 +226,9 @@ margin:20px;
   /* width:10vw; */
   border-radius:5px;
   color:#fff;
-  background-color:#2b90d9;
+  /* background-color:#2b90d9; */
+  /* background-color:rgba(65, 207, 218, 0.897); */
+  background-color:#2ab193e5;
   padding:7px 0px;
   display:flex;
   align-items:center;
@@ -246,9 +277,14 @@ nav {
 }
 
 #logo {
-  color:#2b90d9;
+  /* color:rgba(65, 218, 185, 0.897); */
+  color:rgba(36, 196, 175, 0.897);
   font-size:20px;
 
+}
+
+#user-details {
+  margin-top:10px;
 }
 
 .one-user {
@@ -266,6 +302,10 @@ nav {
   align-items:center;
   margin-top:50px;
   padding-left:0;
+}
+
+footer{
+  padding: 2em 0;
 }
 
 @keyframes App-logo-spin {

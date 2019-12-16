@@ -3,6 +3,7 @@ import VRScene from "./../components/VRScene";
 import Comments from "./../components/Comments";
 import axios from "axios";
 import { withAuth } from "../lib/AuthProvider";
+// import Users from "../lib/user-service";
 import Navbar from "../components/Navbar";
 
 class UserPage extends Component {
@@ -25,7 +26,14 @@ class UserPage extends Component {
     const { id } = this.props.match.params;
     console.log(this.props);
     this.getUser(id);
+
+
+
   }
+
+
+
+
 
   render() {
     return (
@@ -33,8 +41,8 @@ class UserPage extends Component {
         <Navbar />
         <h2>Welcome to {this.state.user.username}'s space </h2>
         <VRScene getUser={this.getUser} />
-
-        <Comments />
+      
+        <Comments getUser={this.getUser}/>
       </div>
     );
   }

@@ -10,7 +10,12 @@ class Profile extends Component {
     username: "",
     email: "",
     space_name: "",
-    theme: ""
+    theme: "",
+    comments: [],
+    file: null,
+    fileName: "",
+    path: "",
+    objects: []
   };
 
   onChangeHandler = e => {
@@ -21,9 +26,11 @@ class Profile extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
+    let id = this.props.user._id
     let { file } = this.state;
     let formData = new FormData();
     formData.append("file", file);
+    
     const config = {
       headers: {
         "content-type": "multipart/form-data"
@@ -31,21 +38,30 @@ class Profile extends Component {
     };
 
     axios
-      .post("http://localhost:5000/users/upload", formData, config)
+      .post(`http://localhost:5000/users/upload/${id}`, formData, config)
       .then(res => {
         alert("The file was successfully uploaded");
+        console.log(res)
+      const theFile = this.fileUpload.files[0];
+      this.setState({ fileName:theFile.name, objects: res.data.objects });
+      this.uploadFile()
+      
       })
-      .catch(error => {});
+      .catch(error => {
+          console.log(error)
+      });
 
-    const theFile = this.fileUpload.files[0];
-    this.setState({ path: "/" + theFile.name });
-
-    console.log(theFile);
+    
+   
     // var userId = file.
 
+  }
+
+  uploadFile = () => {
+    let { fileName } = this.state;
     var assetEl = document.createElement("a-asset-item");
-    assetEl.setAttribute("src", "http://localhost:5000/" + file.name);
-    assetEl.setAttribute("id", file.name);
+    assetEl.setAttribute("src", "http://localhost:5000/" + fileName);
+    assetEl.setAttribute("id", fileName);
     document.getElementById("assets-id").appendChild(assetEl);
 
     var gltfModelId = "#" + assetEl.id;
@@ -54,19 +70,24 @@ class Profile extends Component {
     var entityEl = document.createElement("a-entity");
     entityEl.setAttribute("gltf-model", gltfModelId);
     entityEl.setAttribute("id", "rig");
-    entityEl.setAttribute("movement-controls");
-    entityEl.setAttribute("look-controls", "pointerLockEnabled: true");
+    entityEl.setAttribute("wasd-controls");
+   
+    // entityEl.setAttribute("wasd-controls", "adInverted:false");
+    // entityEl.setAttribute("wasd-controls", "wsInverted:false");
+    entityEl.setAttribute("wasd-controls", "acceleration:5005");
+    // entityEl.setAttribute("wasd-controls", "fly:true");
+    entityEl.setAttribute("look-controls");
     entityEl.setAttribute(
       "sound",
       "src: url(12 Rokthaboat[Twrk].mp3); autoplay: true"
     );
     document.getElementById("scene").appendChild(entityEl);
     console.log(entityEl);
-
-    var textEl = document.createElement("a-text");
-    textEl.setAttribute("text", "value: Hello");
-    textEl.setAttribute("text", "width: 2.5");
-    textEl.setAttribute("position", "20, 50, 20");
+    
+    // var textEl = document.createElement("a-text");
+    // textEl.setAttribute("text", "value: Hello");
+    // textEl.setAttribute("text", "width: 2.5");
+    // textEl.setAttribute("position", "20, 50, 20");
   };
 
   showForm = () => {
@@ -98,7 +119,7 @@ class Profile extends Component {
         username,
         email,
         space_name,
-        theme
+        theme,
       })
       .then(response => {
         console.log("Hello", response.data);
@@ -110,7 +131,35 @@ class Profile extends Component {
       });
   };
 
-  componentDidMount() {
+
+  deleteObject = () => {
+   let modelId = this.state.objects.pop()
+
+//     const newList = this.state.objects;
+//     console.log(newList)
+//     let newObjectsList = newList.filter(object => object === modelId.toString());
+//   console.log(newObjectsList)
+
+axios.delete(`http://localhost:5000/users/deleteObject/${modelId}`)
+.then(response => {
+    
+    this.setState({path: null, fileName:null})
+    let file = document.getElementById('rig')
+    file.remove()
+      console.log("Hello", response);
+    //   const user = response.data;
+    //   console.log(user)
+    //   this.setState({path: null, file:null})
+    //   this.setState({initalComments: user.comments})
+  })
+  .catch(err => {
+      console.log(err);
+    });
+
+
+  }
+
+  componentDidMount = () => {
     console.log(this.props);
     const id = this.props.user._id;
     axios
@@ -122,8 +171,25 @@ class Profile extends Component {
           username: user.username,
           email: user.email,
           space_name: user.space_name,
-          theme: user.theme
+          theme: user.theme,
+          comments: user.comments
         });
+        
+      })
+      .catch(err => {
+        console.log(err);
+      });
+      axios
+      .get(`http://localhost:5000/users/filename`)
+      .then(response => {
+        console.log("Hello", response.data);
+        let newObjects = response.data.map(object => object._id )
+        this.setState({
+          path:"/" + response.data.pop().path, fileName: response.data.pop().path, objects: newObjects
+        });
+        this.uploadFile()
+      
+        console.log(this.state.path)
       })
       .catch(err => {
         console.log(err);
@@ -132,13 +198,16 @@ class Profile extends Component {
 
   render() {
     return (
+        
       <div id="profile-wrapper">
-        <div id="edit-wrapper">
-          <div className="container env">
+     
+      
+          <div className="container env" style={{paddingLeft:"2rem", width:"77.5%"}}>
+           <div className="profile-details">
             <a onClick={this.showForm}>
-              <h2>Edit Profile</h2>
+              <h2 style={{color:"black"}}>Edit Profile</h2>
             </a>
-            <div id="user-details">
+            <div id="user-details" >
               <h3>
                 Username: <span>{this.state.username}</span>{" "}
               </h3>
@@ -183,25 +252,36 @@ class Profile extends Component {
                 onChange={this.handleInput}
               ></input>
               <button>Save</button>
-            </form>
-          </div>
-          <div className="container env">
-            <h2>Upload 3D object (.glb format)</h2>
-            <form onSubmit={this.handleSubmit} encType="multipart/form-data">
-              <input
-                onChange={this.onChangeHandler}
-                type="file"
-                name="file"
-                ref={ref => (this.fileUpload = ref)}
-              />
-              <button type="submit" value="upload">
-                Save
-              </button>
-            </form>
-          </div>
+              
+            </form> 
+            </div>
+            <div className="profile-details">
+        <ul className="env" style={{ display:"flex", flexDirection:"row"}}>
+         
+         <li><h2>Upload 3D object (.glb format)</h2>
+         <form onSubmit={this.handleSubmit} encType="multipart/form-data" >
+           <input
+             onChange={this.onChangeHandler}
+             type="file"
+             name="file"
+             ref={ref => (this.fileUpload = ref)}
+             style={{paddingLeft:"20%"}}
+           />
+           <button type="submit" value="upload" >
+             Save
+           </button>
+           <li><button style={{border:"1px solid black", color:"black;backgroundColor:transparent", width:"60%"}} onClick={this.deleteObject}>Delete current object</button></li>
+         </form> 
+         </li> 
+         </ul>
+         </div>
+       
         </div>
 
-        <Comments />
+        <Comments comments={this.state.comments}/>
+
+       
+      
       </div>
     );
   }
