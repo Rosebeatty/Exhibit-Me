@@ -4,7 +4,7 @@ import { withAuth } from "../lib/AuthProvider";
 import axios from "axios";
 import Comments from "./Comments";
 import "aframe-extras";
-import "html2canvas";
+// import "html2canvas";
 
 class Profile extends Component {
   state = {

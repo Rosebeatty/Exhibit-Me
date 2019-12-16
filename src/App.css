@@ -24,7 +24,7 @@
   background-size: cover; */
 }
 
-.App-logo {
+/* .App-logo {
   height: 40vmin;
   pointer-events: none;
 }
@@ -33,7 +33,7 @@
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
   }
-}
+} */
 
 .App-header {
   background-color: #282c342f;
@@ -90,15 +90,6 @@ li {
   list-style: none;
 }
 
-.project, .task {
-  margin: 0 auto;
-  margin-bottom: 5px;
-  margin-top: 10px;
-  padding: 10px;
-  border: 1px solid black;
-  border-radius: 7px;
-  max-width: 700px;
-}
 
 .nav-style ul {
   display:flex;
@@ -185,8 +176,6 @@ li {
 .env a {
   margin-bottom:25px;
 }
-
-
 
 
 #search-input {
@@ -314,11 +303,11 @@ footer{
   padding: 2em 0;
 }
 
-@keyframes App-logo-spin {
+/* @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
   }
   to {
     transform: rotate(360deg);
   }
-}
+} */
