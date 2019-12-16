@@ -15,9 +15,7 @@ import PrivateRoute from './components/PrivateRoute';
 class App extends Component {
   render() {
     return (
-      <div className="App" style={{
-        // backgroundImage:"url('logo192.png')",
-         backgroundSize:"cover"}}>
+      <div className="App">
       
         <Switch>
           <AnonRoute exact path="/signup" component={Signup} />

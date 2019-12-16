@@ -22,7 +22,7 @@ class Home extends Component {
 
   getAllUsers = () => {
     axios
-      .get("http://localhost:5000/users")
+      .get(`${process.env.REACT_APP_API_URL}/users`)
       .then(response => {
         console.log(response.data[0].username);
         const users = response.data;

@@ -78,10 +78,10 @@ class Profile extends Component {
     entityEl.setAttribute("wasd-controls", "acceleration:5005");
     // entityEl.setAttribute("wasd-controls", "fly:true");
     entityEl.setAttribute("look-controls");
-    entityEl.setAttribute(
-      "sound",
-      "src: url(12 Rokthaboat[Twrk].mp3); autoplay: true"
-    );
+    // entityEl.setAttribute(
+    //   "sound",
+    //   "src: url(12 Rokthaboat[Twrk].mp3); autoplay: true"
+    // );
     document.getElementById("scene").appendChild(entityEl);
     console.log(entityEl);
     
@@ -272,7 +272,7 @@ axios.delete(`${process.env.REACT_APP_API_URL}/users/deleteObject/${modelId}`)
            <button type="submit" value="upload" >
              Save
            </button>
-           <button style={{border:"1px solid black", color:"black;backgroundColor:transparent", width:"60%"}} onClick={this.deleteObject}>Delete current object</button>
+           <button style={{border:"1px solid black", color:"black", backgroundColor:"transparent", width:"60%"}} onClick={this.deleteObject}>Delete current object</button>
          </form> 
          </li> 
          </ul>

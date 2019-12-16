@@ -1,41 +1,27 @@
-* {
-  margin:0;
-}
-
-.App {
+ .App {
   text-align: center;
   padding: 0;
-  background-color: rgba(0, 0, 0, 0.897); /* fallback for old browsers */
-  background: -webkit-linear-gradient(to right, #000000, #434343); /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to center, #000000, #000000); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background-color: rgba(0, 0, 0, 0.897); 
   min-height:200vh;
   color:#fff;
   font-family: arial;
   margin-bottom:0;
   min-width:100vw;
+} 
 
-
-  /* height: 500vh; */
-
-  /* Create the parallax scrolling effect */
-  /* background-attachment: fixed;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover; */
-}
-
-/* .App-logo {
+ .App-logo {
   height: 40vmin;
   pointer-events: none;
-}
+} 
+/*
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
   }
-} */
+}  */
 
-.App-header {
+ .App-header {
   background-color: #282c342f;
   min-height: 100vh;
   display: flex;
@@ -44,14 +30,14 @@
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
-}
+} 
 
-.App-link {
+ .App-link {
   color: #61dafb;
-}
+} 
 
 
-form {
+ form {
   padding: 10px 20px;
   border: none;
   border-radius: 8px;
@@ -75,11 +61,6 @@ button {
   margin-bottom: 5px;
   font-size: 16px;
 }
-
-/* .env button {
-  display:flex;
-  flex-direction:row;
-} */
 
 a {
   text-decoration: none;
@@ -114,9 +95,9 @@ li {
  text-align:right;
   padding-left:5%;
  
-}
+} 
 
-#myEmbeddedScene {
+ #myEmbeddedScene {
   height:80vh;
   width:80vw;
   margin:0 auto;
@@ -160,7 +141,7 @@ li {
 }
 
 #wrapper {
-  background-image: url(/cube.png);
+ 
   background-size:70vw;
   background-repeat: no-repeat;
   background-position: center;;
@@ -215,14 +196,13 @@ li {
 text-align:left;
 color:black;
 margin:20px;
-}
+} 
 
 #search-button {
-  /* width:10vw; */
+
   border-radius:5px;
   color:#fff;
-  /* background-color:#2b90d9; */
-  /* background-color:rgba(65, 207, 218, 0.897); */
+  
   background-color:#2ab193e5;
   padding:7px 0px;
   display:flex;
@@ -272,7 +252,7 @@ nav {
 }
 
 #logo {
-  /* color:rgba(65, 218, 185, 0.897); */
+  color:rgba(65, 218, 185, 0.897); 
   color:rgba(36, 196, 175, 0.897);
   font-size:20px;
 
@@ -301,13 +281,13 @@ nav {
 
 footer{
   padding: 2em 0;
-}
+} 
 
-/* @keyframes App-logo-spin {
+ @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
   }
   to {
     transform: rotate(360deg);
   }
-} */
+}
