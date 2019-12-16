@@ -18,17 +18,17 @@ A social network created with React, A-Frame, MongoDB and NodeJs for artists and
 
 - **Logout:** As a user I can logout from the platform so no one else can use it
 
-- See my profile: As a user I can view my profile
+- **See my profile:** As a user I can view my profile
 
-- Edit profile: As a user I can edit my profile
+- **Edit profile:** As a user I can edit my profile
 
-- Add 3D object to my environment: As a user I can upload a 3D object (.glb format) to the virtual environment
+- **Add 3D object to my environment:** As a user I can upload a 3D object (.glb format) to the virtual environment
 
--  View other user profiles: As a user I can view the profiles of other users
+-  **View other user profiles:** As a user I can view the profiles of other users
 
-- Create/update/delete comments: As a user I can make/delete/update comments
+- **Create/update/delete comments:** As a user I can make/delete/update comments
 
-- Search users and themes: As a user I can use the search bar to search users and themes by hashtag
+- **Search users and themes:** As a user I can use the search bar to search users and themes by hashtag
 
   
 
