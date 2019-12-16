@@ -13,7 +13,7 @@ class UserPage extends Component {
 
   getUser = (id) => {
     axios
-      .get(`http://localhost:5000/users/${id}`)
+      .get(`${process.env.REACT_APP_API_URL}/users/${id}`)
       .then(response => {
         console.log(response);
         const user = response.data;
@@ -41,7 +41,7 @@ class UserPage extends Component {
         <Navbar />
         <h2>Welcome to {this.state.user.username}'s space </h2>
         <VRScene getUser={this.getUser} />
-      
+
         <Comments getUser={this.getUser}/>
       </div>
     );

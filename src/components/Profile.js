@@ -4,7 +4,7 @@ import { withAuth } from "../lib/AuthProvider";
 import axios from "axios";
 import Comments from "./Comments";
 import "aframe-extras";
-import "Canvas2Image";
+import "html2canvas";
 
 class Profile extends Component {
   state = {
@@ -39,7 +39,7 @@ class Profile extends Component {
     };
 
     axios
-      .post(`http://localhost:5000/users/upload/${id}`, formData, config)
+      .post(`${process.env.REACT_APP_API_URL}/users/upload/${id}`, formData, config)
       .then(res => {
         alert("The file was successfully uploaded");
         console.log(res)
@@ -61,7 +61,7 @@ class Profile extends Component {
   uploadFile = () => {
     let { fileName } = this.state;
     var assetEl = document.createElement("a-asset-item");
-    assetEl.setAttribute("src", "http://localhost:5000/" + fileName);
+    assetEl.setAttribute("src", `${process.env.REACT_APP_API_URL}/images/` + fileName);
     assetEl.setAttribute("id", fileName);
     document.getElementById("assets-id").appendChild(assetEl);
 
@@ -116,7 +116,7 @@ class Profile extends Component {
     const id = this.props.user._id;
 
     axios
-      .put(`http://localhost:5000/users/update/${id}`, {
+      .put(`${process.env.REACT_APP_API_URL}/users/update/${id}`, {
         username,
         email,
         space_name,
@@ -141,7 +141,7 @@ class Profile extends Component {
 //     let newObjectsList = newList.filter(object => object === modelId.toString());
 //   console.log(newObjectsList)
 
-axios.delete(`http://localhost:5000/users/deleteObject/${modelId}`)
+axios.delete(`${process.env.REACT_APP_API_URL}/users/deleteObject/${modelId}`)
 .then(response => {
     
     this.setState({path: null, fileName:null})
@@ -157,14 +157,14 @@ axios.delete(`http://localhost:5000/users/deleteObject/${modelId}`)
       console.log(err);
     });
 
-
   }
+
 
   componentDidMount = () => {
     console.log(this.props);
     const id = this.props.user._id;
     axios
-      .get(`http://localhost:5000/users/${id}`)
+      .get(`${process.env.REACT_APP_API_URL}/users/${id}`)
       .then(response => {
         console.log("Hello", response.data);
         const user = response.data;
@@ -181,7 +181,7 @@ axios.delete(`http://localhost:5000/users/deleteObject/${modelId}`)
         console.log(err);
       });
       axios
-      .get(`http://localhost:5000/users/filename`)
+      .get(`${process.env.REACT_APP_API_URL}/users/filename`)
       .then(response => {
         console.log("Hello", response.data);
         let newObjects = response.data.map(object => object._id )
@@ -189,12 +189,7 @@ axios.delete(`http://localhost:5000/users/deleteObject/${modelId}`)
           path:"/" + response.data.pop().path, fileName: response.data.pop().path, objects: newObjects
         });
         this.uploadFile()
-        // var canvas = document.getElementById("scene");
-        // document.getElementById("scene").src = canvas.toDataURL();
         
-        // Canvas2Image.saveAsPNG(canvas);
-
-
         console.log(this.state.path)
       })
       .catch(err => {
@@ -202,9 +197,10 @@ axios.delete(`http://localhost:5000/users/deleteObject/${modelId}`)
       });
   }
 
+
   render() {
     return (
-        
+       
       <div id="profile-wrapper">
      
       
@@ -264,7 +260,7 @@ axios.delete(`http://localhost:5000/users/deleteObject/${modelId}`)
             <div className="profile-details">
         <ul className="env" style={{ display:"flex", flexDirection:"row"}}>
          
-         <li><h2>Upload 3D object (.glb format)</h2>
+         <li><h2>Upload a 3D object into your space (.glb format)</h2>
          <form onSubmit={this.handleSubmit} encType="multipart/form-data" >
            <input
              onChange={this.onChangeHandler}
@@ -276,7 +272,7 @@ axios.delete(`http://localhost:5000/users/deleteObject/${modelId}`)
            <button type="submit" value="upload" >
              Save
            </button>
-           <li><button style={{border:"1px solid black", color:"black;backgroundColor:transparent", width:"60%"}} onClick={this.deleteObject}>Delete current object</button></li>
+           <button style={{border:"1px solid black", color:"black;backgroundColor:transparent", width:"60%"}} onClick={this.deleteObject}>Delete current object</button>
          </form> 
          </li> 
          </ul>

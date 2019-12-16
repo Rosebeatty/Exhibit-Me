@@ -28,7 +28,7 @@
     const userId = this.props.user._id;
 
     axios
-      .post(`http://localhost:5000/comments/create/${userId}`, {
+      .post(`${process.env.REACT_APP_API_URL}/comments/create/${userId}`, {
         comment, userId
       })
       .then(response => {

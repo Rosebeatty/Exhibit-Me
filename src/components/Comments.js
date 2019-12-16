@@ -26,7 +26,7 @@ class Comments extends Component {
     const id = this.props.user._id;
 
     axios
-      .get(`http://localhost:5000/comments`)
+      .get(`${process.env.REACT_APP_API_URL}/comments`)
       .then(response => {
         //PROBLEM
         const userData = response;
@@ -50,7 +50,7 @@ class Comments extends Component {
     let newCommentsList = newList.filter(user => user._id !== commentId);
    this.setState({initialComments: newCommentsList})
 
-  axios.delete(`http://localhost:5000/comments/delete/${commentId}`)
+  axios.delete(`${process.env.REACT_APP_API_URL}/comments/delete/${commentId}`)
   .then(response => {
     
       console.log("Hello", response);
@@ -98,9 +98,8 @@ class Comments extends Component {
               return (
                 <div key={user._id} className="comment">
                   <h3>{user.comment}</h3>
-                  <hr />
                 
-                  <button onClick={(e) => this.deleteComment(user._id)}>Delete Button</button>
+                  <button onClick={(e) => this.deleteComment(user._id)}>Delete</button>
                   <hr />
 
                   {/* <DeleteComment getComments={this.getComments}/> */}

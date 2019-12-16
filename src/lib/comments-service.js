@@ -3,7 +3,7 @@ import axios from 'axios';
 class Comments {
   constructor() {
     this.comments = axios.create({
-      baseURL: 'http://localhost:5000/comments',
+      baseURL: 'http://localhost:5000/',
       withCredentials: true,
     });
   }

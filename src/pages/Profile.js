@@ -4,7 +4,7 @@ import EditProfile from "./../components/Profile";
 import axios from "axios";
 import { withAuth } from "../lib/AuthProvider";
 import Navbar from "../components/Navbar";
-import "Canvas2Image";
+import html2canvas from 'html2canvas';
 
 class Profile extends Component {
   state = {
@@ -16,7 +16,7 @@ class Profile extends Component {
   componentDidMount() {
     const id = this.props.user._id;
     axios
-      .get(`http://localhost:5000/users/${id}`)
+      .get(`${process.env.REACT_APP_API_URL}/users/${id}`)
       .then(response => {
         console.log("Hello", response.data.username);
         const user = response.data;

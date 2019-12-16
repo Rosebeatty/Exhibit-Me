@@ -69,11 +69,17 @@ button {
   width: 150px;
   padding: 5px 20px;
   border-radius: 10px;
+  background-color:transparent;
   margin: 0 auto;
   margin-top: 5px;
   margin-bottom: 5px;
   font-size: 16px;
 }
+
+/* .env button {
+  display:flex;
+  flex-direction:row;
+} */
 
 a {
   text-decoration: none;

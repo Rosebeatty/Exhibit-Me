@@ -21,7 +21,7 @@ class VRScene extends Component {
   componentDidMount() {
     const id = this.props.user._id;
     axios
-      .get(`http://localhost:5000/users/${id}`)
+      .get(`${process.env.REACT_APP_API_URL}/users/${id}`)
       .then(response => {
         console.log("Hello", response.data.username);
         const user = response.data;
