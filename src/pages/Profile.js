@@ -4,6 +4,7 @@ import EditProfile from "./../components/Profile";
 import axios from "axios";
 import { withAuth } from "../lib/AuthProvider";
 import Navbar from "../components/Navbar";
+import "Canvas2Image";
 
 class Profile extends Component {
   state = {

@@ -4,6 +4,7 @@ import { withAuth } from "../lib/AuthProvider";
 import axios from "axios";
 import Comments from "./Comments";
 import "aframe-extras";
+import "Canvas2Image";
 
 class Profile extends Component {
   state = {
@@ -188,7 +189,12 @@ axios.delete(`http://localhost:5000/users/deleteObject/${modelId}`)
           path:"/" + response.data.pop().path, fileName: response.data.pop().path, objects: newObjects
         });
         this.uploadFile()
-      
+        // var canvas = document.getElementById("scene");
+        // document.getElementById("scene").src = canvas.toDataURL();
+        
+        // Canvas2Image.saveAsPNG(canvas);
+
+
         console.log(this.state.path)
       })
       .catch(err => {
