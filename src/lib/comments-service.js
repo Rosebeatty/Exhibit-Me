@@ -1,12 +1,12 @@
-import axios from 'axios';
+// import axios from 'axios';
 
-class Comments {
-  constructor() {
-    this.comments = axios.create({
-      baseURL: 'http://localhost:5000/',
-      withCredentials: true,
-    });
-  }
+// class Comments {
+//   constructor() {
+//     this.comments = axios.create({
+//       baseURL: 'http://localhost:5000/',
+//       withCredentials: true,
+//     });
+//   }
 
   // getAll(id) {
   //   return this.comments
@@ -33,7 +33,7 @@ class Comments {
   //             .then(({ data }) => data);
   // }
   
-}
+// }
 
 // commentssService.getAll()
 //   .then( (response) => response.data )
@@ -44,6 +44,6 @@ class Comments {
 //   .catch( (err) => console.log(err));
 
 
-const Comment = new Comments();
+// const Comment = new Comments();
 
-export default Comment;
+// export default Comment;

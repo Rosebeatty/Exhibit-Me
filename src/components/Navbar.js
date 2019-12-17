@@ -10,33 +10,6 @@ class Navbar extends Component {
     // selected: []
   };
 
-  // filterUsers = (input) => {
-  //   console.log(this.state.users)
-  //   console.log(this.state.selected)
-  //   let selected = this.state.users.filter((el) => {
-  //      return el.username.includes(input)
-
-  //   }
-  //    );
-  //    console.log(selected)
-  //    this.setState({ selected: selected })
-
-  //   }
-
-  // getAllUsers = () => {
-  //   axios.get('http://localhost:5000/users')
-  //     .then((response) => {
-  //       console.log(response.data[0].username)
-  //       const users = response.data;
-  //       this.setState({users: users, selected:users})
-  //       console.log(this.state.users)
-  //     })
-  //     .catch((err) => console.log(err))
-  // }
-
-  // componentDidMount() {
-  //     this.getAllUsers()
-  // }
 
   render() {
     const { user, logout, isLoggedin } = this.props;
@@ -56,7 +29,7 @@ class Navbar extends Component {
               <li>
                 <Link to="/profile">Profile</Link>
               </li>
-              <SearchBar filterUsers={this.props.filterUsers} />
+              <SearchBar filterUsers={this.props.filterUsers}  />
 
               <li id="logout-btn">
                 <button onClick={logout}>Logout</button>

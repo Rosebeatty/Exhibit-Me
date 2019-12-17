@@ -5,7 +5,7 @@ import axios from "axios";
 
 class SearchBar extends Component {
   state = {
-    input: ""
+    input: "",
   };
 
   handleInput = e => {
@@ -13,6 +13,8 @@ class SearchBar extends Component {
     this.props.filterUsers(value);
     this.setState({ input: value });
   };
+
+  
 
   render() {
     return (

@@ -4,7 +4,7 @@ import EditProfile from "./../components/Profile";
 import axios from "axios";
 import { withAuth } from "../lib/AuthProvider";
 import Navbar from "../components/Navbar";
-import html2canvas from 'html2canvas';
+
 
 class Profile extends Component {
   state = {
@@ -44,7 +44,9 @@ class Profile extends Component {
         <VRScene />
         <EditProfile />
         </div>
-        <footer>Rose Beatty 2019</footer>
+        
+        <footer ><p>Rose Beatty 2019</p></footer>
+        
       </div>
     );
   }

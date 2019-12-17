@@ -6,6 +6,7 @@ import { Entity, Scene } from "aframe-react";
 import "aframe-extras";
 import axios from "axios";
 
+
 class VRScene extends Component {
   state = {
     // file: null,
@@ -43,20 +44,22 @@ class VRScene extends Component {
     console.log(this.props);
     
     return (
-      <div className="vrscene">
-        <div id="myEmbeddedScene">
+      <div className="vrscene" >
+        <div id="myEmbeddedScene" >
           <Scene id="scene" embedded>
             <a-sky color="white"></a-sky>
             <a-assets id="assets-id">
-              <img id="sky" src="bali.jpg"></img>
+              {/* <img id="sky" src="bali.jpg"></img> */}
             </a-assets>
             <a-camera position="200 100 0"></a-camera>
 
-            <a-sky src="#sky"></a-sky>
+            {/* <a-sky src="#sky"></a-sky> */}
 
             {/* <a-videosphere src="africa.mp4"></a-videosphere> */}
           </Scene>
-          <h2 id="vrscene-theme">Theme: {this.state.theme}</h2>
+          {/* <hr style={{marginTop:"1.5em"}}/> */}
+          {/* <h1 style={{textAlign:"center", textDecoration:"underline", borderBottom:"1px solid grey", padding:"0.4em 0"}}>{this.state.space_name}</h1> */}
+          {/* <h2 id="vrscene-theme" style={{borderBottom:"1px solid grey", padding:"0.4em 0"}} >Theme: {this.state.theme} </h2> */}
         </div>
        
       </div>

@@ -89,6 +89,7 @@ class Comments extends Component {
     const commentsList = this.state.initialComments.reverse();
 
     return (
+        <div>
       <div id="comments-wrapper">
         <h3>400 Comments</h3>
         <div className="comment">
@@ -110,14 +111,16 @@ class Comments extends Component {
               );
             })}
           </div>
-
+            <div>
           <p>Rose 1 week ago</p>
           <p>
             HelloThereHelloThereHelloThereHelloThereHelloThereHelloThereHelloThereHelloThereHelloThere
           </p>
           <p>Reply</p>
           <hr />
+          </div>
         </div>
+      </div>
       </div>
     );
   }

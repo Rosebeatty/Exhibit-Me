@@ -27,22 +27,20 @@ class UserPage extends Component {
     console.log(this.props);
     this.getUser(id);
 
-
-
   }
-
-
-
 
 
   render() {
     return (
       <div>
         <Navbar />
-        <h2>Welcome to {this.state.user.username}'s space </h2>
+        <div style={{backgroundColor:'rgba(255, 255, 255, 0.04)'}}>
+        <h2 style={{padding:"1em 0 0.5em 0"}}>Welcome to {this.state.user.username}'s Environment </h2>
         <VRScene getUser={this.getUser} />
 
         <Comments getUser={this.getUser}/>
+      </div>
+        <footer ><p>Rose Beatty 2019</p></footer>
       </div>
     );
   }

@@ -1,25 +1,25 @@
-import axios from 'axios';
+// import axios from 'axios';
 
-class Users {
-  constructor() {
-    this.users = axios.create({
-      baseURL: process.env.REACT_APP_API_URL,
-      withCredentials: true,
-    });
-  }
+// class Users {
+//   constructor() {
+//     this.users = axios.create({
+//       baseURL: process.env.REACT_APP_API_URL,
+//       withCredentials: true,
+//     });
+//   }
 
-  getAll() {
-    return this.users
-              .get(`/users`)
-              .then(({ data }) => data);
-  }
+//   getAll() {
+//     return this.users
+//               .get(`/users`)
+//               .then(({ data }) => data);
+//   }
 
-  getOneById(id) {
-    return this.users
-              .get(`/${id}`)
-              .then(({ data }) => data);
-  }
-}
+//   getOneById(id) {
+//     return this.users
+//               .get(`/${id}`)
+//               .then(({ data }) => data);
+//   }
+// }
 
 
 
@@ -33,6 +33,6 @@ class Users {
 //   .catch( (err) => console.log(err));
 
 
-const users = new Users();
+// const users = new Users();
 
-export default Users;
+// export default Users;

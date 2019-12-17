@@ -4,7 +4,6 @@ import { withAuth } from "../lib/AuthProvider";
 import axios from "axios";
 import Comments from "./Comments";
 import "aframe-extras";
-// import "html2canvas";
 
 class Profile extends Component {
   state = {
@@ -16,12 +15,20 @@ class Profile extends Component {
     file: null,
     fileName: "",
     path: "",
-    objects: []
+    objects: [],
+    backgroundImage:null
   };
 
   onChangeHandler = e => {
     this.setState({
       file: e.target.files[0]
+    });
+  };
+
+  onBkgChangeHandler = e => {
+    this.setState({
+      backgroundImage: e.target.files[0]
+     
     });
   };
 
@@ -52,10 +59,50 @@ class Profile extends Component {
           console.log(error)
       });
 
-    
-   
-    // var userId = file.
+  }
 
+  handleImageSubmit = e => {
+    e.preventDefault();
+    let id = this.props.user._id
+    let file = this.state.backgroundImage;
+    let formData = new FormData();
+    formData.append("file", file);
+    console.log(file)
+    const config = {
+      headers: {
+        "content-type": "multipart/form-data"
+      }
+    };
+
+    axios
+      .post(`${process.env.REACT_APP_API_URL}/users/uploadBackground/${id}`, formData, config)
+      .then(res => {
+        alert("The file was successfully uploaded");
+        console.log(res)
+      const theFile = this.backgroundUpload.files[0];
+      this.setState({ backgroundImage:theFile.name });
+      this.uploadBackground()
+      
+      })
+      .catch(error => {
+          console.log(error)
+      });
+
+  }
+
+  uploadBackground = () => {
+    let { backgroundImage } = this.state;
+    var assetEl = document.createElement("img");
+    assetEl.setAttribute("src", `${process.env.REACT_APP_API_URL}/images/` + backgroundImage);
+    assetEl.setAttribute("id", backgroundImage);
+    document.getElementById("assets-id").appendChild(assetEl);
+    
+    var skyId = '#' + assetEl.id;
+
+    var bkgImg = document.createElement('a-sky')
+    bkgImg.setAttribute("src", skyId);
+    document.getElementById("scene").appendChild(bkgImg);
+    console.log(bkgImg);
   }
 
   uploadFile = () => {
@@ -85,17 +132,44 @@ class Profile extends Component {
     document.getElementById("scene").appendChild(entityEl);
     console.log(entityEl);
     
-    // var textEl = document.createElement("a-text");
-    // textEl.setAttribute("text", "value: Hello");
-    // textEl.setAttribute("text", "width: 2.5");
-    // textEl.setAttribute("position", "20, 50, 20");
   };
 
-  showForm = () => {
-    var editProfileForm = document.getElementById("edit-profile-form");
+  showForm = (e) => {
+    e.preventDefault();
+    const editProfileForm = document.getElementById("edit-profile-form");
     editProfileForm.style.display = "block";
-    var userDetails = document.getElementById("user-details");
+    const userDetails = document.getElementById("user-details");
     userDetails.style.display = "none";
+  };
+
+  showCreateButton = () => {
+      const createButton = document.getElementById("create-btn");
+      createButton.style.display = "block";
+      const uploadForm = document.getElementById("upload");
+      uploadForm.style.display = "none";
+  }
+
+  showCreateBkgButton = () => {
+    const createButton = document.getElementById("create-bkg-btn");
+    createButton.style.display = "block";
+    const uploadForm = document.getElementById("upload-bkg");
+    uploadForm.style.display = "none";
+}
+
+  showUpload = (e) => {
+    e.preventDefault();
+    const uploadForm = document.getElementById("upload");
+    uploadForm.style.display = "block";
+    const createButton = document.getElementById("create-btn");
+    createButton.style.display = "none";
+  };
+
+  showImageUpload = (e) => {
+    e.preventDefault();
+    const uploadForm = document.getElementById("upload-bkg");
+    uploadForm.style.display = "block";
+    const createButton = document.getElementById("create-bkg-btn");
+    createButton.style.display = "none";
   };
 
   handleInput = event => {
@@ -136,10 +210,6 @@ class Profile extends Component {
   deleteObject = () => {
    let modelId = this.state.objects.pop()
 
-//     const newList = this.state.objects;
-//     console.log(newList)
-//     let newObjectsList = newList.filter(object => object === modelId.toString());
-//   console.log(newObjectsList)
 
 axios.delete(`${process.env.REACT_APP_API_URL}/users/deleteObject/${modelId}`)
 .then(response => {
@@ -161,8 +231,8 @@ axios.delete(`${process.env.REACT_APP_API_URL}/users/deleteObject/${modelId}`)
 
 
   componentDidMount = () => {
-    console.log(this.props);
-    const id = this.props.user._id;
+    let id = this.props.user._id  
+
     axios
       .get(`${process.env.REACT_APP_API_URL}/users/${id}`)
       .then(response => {
@@ -196,20 +266,17 @@ axios.delete(`${process.env.REACT_APP_API_URL}/users/deleteObject/${modelId}`)
         console.log(err);
       });
   }
-
+  
 
   render() {
     return (
        
-      <div id="profile-wrapper">
-     
-      
-          <div className="container env" style={{paddingLeft:"2rem", width:"77.5%"}}>
-           <div className="profile-details">
-            <a onClick={this.showForm}>
-              <h2 style={{color:"black"}}>Edit Profile</h2>
-            </a>
+      <div id="profile-wrapper"> 
+          <div className="container env" style={{width:"72.5%"}}>
+           <div className="profile-details extra-details">
+            <h1 style={{textAlign:"left", textDecoration:"underline"}}>{this.state.space_name}</h1>
             <div id="user-details" >
+           
               <h3>
                 Username: <span>{this.state.username}</span>{" "}
               </h3>
@@ -217,13 +284,15 @@ axios.delete(`${process.env.REACT_APP_API_URL}/users/deleteObject/${modelId}`)
                 Email: <span>{this.state.email}</span>
               </h3>
               <h3>
-                Space Name: <span>{this.state.space_name}</span>
-              </h3>
-              <h3>
                 Theme: <span>{this.state.theme}</span>
               </h3>
-            </div>
 
+              <div style={{marginTop:"2em", fontSize:"10px"}}>
+              <a href="" onClick={this.showForm} >
+              <h2 style={{color:"white", border:"1px solid white", width:"45%", padding:"10px", textAlign:"center"}}>Edit Profile</h2>
+            </a>
+            </div>
+            </div>
             <form id="edit-profile-form" onSubmit={this.editProfile}>
               <label>Username:</label>
               <input
@@ -253,37 +322,60 @@ axios.delete(`${process.env.REACT_APP_API_URL}/users/deleteObject/${modelId}`)
                 name="theme"
                 onChange={this.handleInput}
               ></input>
-              <button>Save</button>
-              
+              <button style={{color:"white"}}>Save</button>
             </form> 
             </div>
-            <div className="profile-details">
-        <ul className="env" style={{ display:"flex", flexDirection:"row"}}>
-         
-         <li><h2>Upload a 3D object into your space (.glb format)</h2>
-         <form onSubmit={this.handleSubmit} encType="multipart/form-data" >
-           <input
-             onChange={this.onChangeHandler}
-             type="file"
-             name="file"
-             ref={ref => (this.fileUpload = ref)}
-             style={{paddingLeft:"20%"}}
-           />
-           <button type="submit" value="upload" >
-             Save
-           </button>
-           <button style={{border:"1px solid black", color:"black", backgroundColor:"transparent", width:"60%"}} onClick={this.deleteObject}>Delete current object</button>
-         </form> 
-         </li> 
-         </ul>
+            <button id="create-bkg-btn" onClick={this.showImageUpload}>Create / Delete Background</button>
+            <div className="profile-details" id="upload-bkg" style={{display:"none"}}>
+            <ul className="env" style={{ display:"flex", flexDirection:"row", padding:"1em"}}>
+                    <li>
+                        <h2>Upload a 3D background into your space </h2>
+                        <form onSubmit={this.handleImageSubmit} encType="multipart/form-data" >
+                        <input
+                            onChange={this.onBkgChangeHandler}
+                            type="file"
+                            name="file"
+                            ref={ref => (this.backgroundUpload = ref)}
+                            style={{paddingLeft:"20%"}}
+                        />
+                        <button onClick={this.showBkgCreateButton} type="submit" value="upload" style={{color:"white"}}>
+                            Save
+                        </button>
+                        <button style={{border:"1px solid white", color:"white", backgroundColor:"transparent", width:"60%"}} onClick={this.deleteObject}>Delete current background</button>
+                        </form> 
+                    </li> 
+                </ul>
+                </div>
+            <button id="create-btn" onClick={this.showUpload}>Create / Delete Object</button>
+            <div className="profile-details" id="upload">
+            
+                <ul className="env" style={{ display:"flex", flexDirection:"row", padding:"1em"}}>
+                    <li>
+                        <h2>Upload a 3D object into your space </h2>
+                        <p style={{fontSize:"12px"}}>(.glb format)</p>
+                        <form onSubmit={this.handleSubmit} encType="multipart/form-data" >
+                        <input
+                            onChange={this.onChangeHandler}
+                            type="file"
+                            name="file"
+                            ref={ref => (this.fileUpload = ref)}
+                            style={{paddingLeft:"20%"}}
+                        />
+                        <button onClick={this.showCreateBkgButton} type="submit" value="upload" style={{color:"white"}}>
+                            Save
+                        </button>
+                        <button style={{border:"1px solid white", color:"white", backgroundColor:"transparent", width:"60%"}} onClick={this.deleteObject}>Delete current object</button>
+                        </form> 
+                    </li> 
+                </ul>
          </div>
        
         </div>
-
+        {/* <hr style={{border:"0.5px solid grey", width:"70%", margin: "0 auto"}}/> */}
         <Comments comments={this.state.comments}/>
 
        
-      
+       
       </div>
     );
   }
