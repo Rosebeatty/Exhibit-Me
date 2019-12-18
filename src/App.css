@@ -6,7 +6,7 @@
   text-align: center;
   padding: 0;
   background-color: rgba(0, 0, 0, 0.897); 
-  min-height:100%;
+  min-height:100vh;
   color:#fff;
   font-family: arial;
   margin-bottom:0;
@@ -107,6 +107,7 @@ li {
   height:80vh;
   width:80vw;
   margin:0 auto;
+  background-color:#fff
 }
 
 .container {
@@ -137,8 +138,8 @@ li {
 .profile-details {
   margin:0 auto;
   font-size:15px;
-  border:1px solid grey;
-  padding:10px;
+  /* border:1px solid grey; */
+  padding:10px 0.5em;
   color:white;
   background-color:transparent;
   
@@ -146,6 +147,7 @@ li {
 
 #profile-wrapper{
   padding-bottom:1em;
+
 
 }
 
@@ -162,6 +164,11 @@ li {
   color:#fff;
   border:black;
   background-color:#2ab193e5;
+}
+
+#create-delete {
+  display:flex;
+  flex-direction:column;
 }
 
 #edit-profile-form {
@@ -181,7 +188,7 @@ li {
 .env {
   display:flex;
   flex-direction:row;
-  width:45%;
+  
 }
 
 #wrapper {
@@ -328,13 +335,14 @@ nav {
 }
 
 footer{
-  padding: 1.5em 0;
+  padding: 2.1em 0;
   display:flex;
   background-color:black;
   align-items:center;
   flex-direction:column;
   color:#2ab193e5;
   font-weight:600;
+  font-size:13px
 } 
 
  @keyframes App-logo-spin {

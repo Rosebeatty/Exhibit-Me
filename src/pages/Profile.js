@@ -29,7 +29,9 @@ class Profile extends Component {
       .catch(err => {
         console.log(err);
       });
-  }
+     
+    }
+   
 
   render() {
     return (
@@ -41,8 +43,8 @@ class Profile extends Component {
             Welcome back to {this.state.space_name}, {this.state.username}
           </h1>
         </div>
-        <VRScene />
-        <EditProfile />
+        <VRScene  />
+        <EditProfile  />
         </div>
         
         <footer ><p>Rose Beatty 2019</p></footer>

@@ -23,9 +23,19 @@
     handleSubmit = (e) => {
     e.preventDefault();
 
+      // console.log(this.props.getPathname.slice(1));
+     const userId = this.props.user._id
+     console.log(userId);
+    // if (this.props.getPathname === "/profile") {
+    //   userId = `/${this.props.user._id}`;
+    // }
+    // else {
+    //   userId = this.props.getPathname
+    // }
+
     const comment  = this.state.input;
 
-    const userId = this.props.user._id;
+    
 
     axios
       .post(`${process.env.REACT_APP_API_URL}/comments/create/${userId}`, {
@@ -36,13 +46,17 @@
         const userData = response.data;
         this.props.getComments()
         this.setState({ initialComments: userData });
-        // console.log(this.state.comments)
+        console.log(this.state.initialComments)
        
       })
       .catch (err => {
         console.log(err);
       });
 
+    }
+
+    componentDidMount() {
+      this.props.getComments()
     }
 
     render() {

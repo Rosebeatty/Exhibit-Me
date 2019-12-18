@@ -62,11 +62,11 @@ class Home extends Component {
 
   render() {
     return (
-      <div>
+      <div >
         <Navbar filterUsers={this.filterUsers} />
         
      
-            <div style={{backgroundColor:'rgba(255, 255, 255, 0.04)', padding:"1.2em 2em"}}>
+            <div style={{backgroundColor:'rgba(255, 255, 255, 0.04)', padding:"1.2em 2em", minHeight:"90vh"}}>
             <h1 style={{textAlign:"left", margin:"0.5em auto", width:"77%" }}>Discover New Places To Visit</h1>
             
             <div>

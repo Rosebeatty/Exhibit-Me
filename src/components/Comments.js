@@ -11,52 +11,95 @@ class Comments extends Component {
     comments: [],
     input: "",
     commentId: [],
-    initialComments: []
+    initialComments: [],
+    canDelete: true,
+    comment:[]
   };
 
   componentDidMount = () => {
     // console.log(this.props);
 
     this.getComments();
-    console.log(this.props.userInfo);
+    console.log(this.props);
     console.log(this.state.comments);
+
+    // if(`/${this.props.user._id}` === this.props.getPathname) {
+    //   this.setState({canDelete: false}) 
+    // }
+    // console.log(this.props.user._id)
+    // console.log(this.props.match.params)
   };
 
   getComments = () => {
     const id = this.props.user._id;
 
     axios
-      .get(`${process.env.REACT_APP_API_URL}/comments`)
+      .get(`${process.env.REACT_APP_API_URL}/comments/${id}`)
       .then(response => {
         //PROBLEM
         const userData = response;
-        this.setState({ initialComments: userData.data });
-        console.log(userData.data);
+        this.setState({ initialComments: userData.data.comments });
+        console.log(userData);
         console.log(this.state.initialComments);
+        this.findCommon()
       })
       .catch(err => {
         console.log(err);
       });
   };
 
+
+  findCommon = () => {
+
+    //    let  theComments  = this.state.theComments;
+        let  initialComments  = this.state.initialComments
+    
+        axios
+        .get(`${process.env.REACT_APP_API_URL}/comments`)
+        .then(response => {
+    
+        
+        let theComments = response.data
+    
+        let matchingComments = theComments.filter(comment => initialComments.includes(comment._id)).map(comment => comment)
+         
+        this.setState({comment: matchingComments, comments: theComments})
+    
+        console.log(matchingComments)
+        console.log(theComments)
+        })
+      }
+       
+      
+
   deleteComment = (id) => {
-   
-    // const newList = this.state.initialComments;
+   const comment = this.state.comment
+    const newList = this.state.initialComments;
     console.log(id)
     const commentId = id
-    console.log(commentId)
+    console.log("Hello", comment)
 
-    const newList = this.state.initialComments;
-    let newCommentsList = newList.filter(user => user._id !== commentId);
-   this.setState({initialComments: newCommentsList})
+    // let newCommentsList = newList.filter(comment => comment)
+   
+    // var index = newList.indexOf(commentId)
 
-  axios.delete(`${process.env.REACT_APP_API_URL}/comments/delete/${commentId}`)
-  .then(response => {
-    
+    // let finalCommentsList = newList.slice(index, 1)
+    //  let newCommentsList = comments.filter(comment => finalCommentsList.includes(comment._id)).map(comment => comment)
+   let newCommentsList = comment.filter(el => {
+     return el._id !== id
+   })
+    // console.log(finalCommentsList);
+   
+    //    }
+    axios.delete(`${process.env.REACT_APP_API_URL}/comments/delete/${commentId}`)
+    .then(response => {
+      
       console.log("Hello", response);
       const user = response.data;
       console.log(user)
-    //   this.setState({initalComments: user.comments})
+      //    if (finalCommentsList > 1) {
+       this.setState({comment: newCommentsList})
+      
   })
   .catch(err => {
       console.log(err);
@@ -85,40 +128,36 @@ class Comments extends Component {
   //}
 
   render() {
-    // const {comments} = this.state;
-    const commentsList = this.state.initialComments.reverse();
+    const {comment} = this.state;
+    const commentsList = comment.reverse();
 
     return (
         <div>
       <div id="comments-wrapper">
-        <h3>400 Comments</h3>
+        <h3>Comments</h3>
         <div className="comment">
           <AddComment getComments={this.getComments} />
           <div>
-            {commentsList.map((user, index) => {
-              return (
+           { 
+                commentsList.map((user, index) => {
+                return (
                 <div key={user._id} className="comment">
                   <h3>{user.comment}</h3>
-                
-                  <button onClick={(e) => this.deleteComment(user._id)}>Delete</button>
+               
+                  <button onClick={(e)=>this.deleteComment(user._id)}>Delete</button>
                   <hr />
-
+                
                   {/* <DeleteComment getComments={this.getComments}/> */}
 
-                  {/* <button onClick={this.deleteComment}>Delete Button</button>
-                <hr /> */}
+              
                 </div>
-              );
-            })}
+              )}
+              ) 
+                
+          }
+            
           </div>
-            <div>
-          <p>Rose 1 week ago</p>
-          <p>
-            HelloThereHelloThereHelloThereHelloThereHelloThereHelloThereHelloThereHelloThereHelloThere
-          </p>
-          <p>Reply</p>
-          <hr />
-          </div>
+         
         </div>
       </div>
       </div>
