@@ -238,8 +238,8 @@ axios.delete(`${process.env.REACT_APP_API_URL}/users/deleteObject/${modelId}`)
   }
 
   deleteBackground = () => {
-    let backgroundId = this.state.bkgImages.pop()
-    console.log(this.state.bkgImages)
+    let backgroundId = this.state.backgroundId
+    console.log(this.state.backgroundId)
  
  axios.delete(`${process.env.REACT_APP_API_URL}/users/deleteBackground/${backgroundId}`)
  .then(response => {
@@ -292,41 +292,68 @@ axios.delete(`${process.env.REACT_APP_API_URL}/users/deleteObject/${modelId}`)
       .then(response => {
         console.log("Hello", response.data);
         let newObjects = response.data.map(object => object._id )
+       
         this.setState({
           path:null, fileName: response.data.pop().path, objects: newObjects
         });
       this.uploadFile()
-        
+      
+      if(this.state.fileName === "") {
+        this.setState({fileExists: false})
+      }
         console.log(this.state.path)
       })
       .catch(err => {
         console.log(err);
       });
-      if(this.state.fileName === "") {
-        this.setState({fileExists: false})
-      }
-      // axios
-      // .get(`${process.env.REACT_APP_API_URL}/users/getBackground`)
-      // .then(response => {
-      //   console.log("Hello", response.data);
-      //   let newBackground = response.data.map(image => image._id )
-      //   this.setState({
-      //     backgroundImage: response.data.pop().path, background:newBackground
-      //   });
-      //   this.uploadBackground()
-        
-      //   console.log(this.state.path)
-      // })
-      // .catch(err => {
-      //   console.log(err);
-      // });
+
+    //   axios
+    // .get(`${process.env.REACT_APP_API_URL}/users/getBackground`)
+    // .then(response => {
+    //   console.log("Hello", response);
+    //   let newBackground = response.data.map(image => image._id )
+    //   let backgroundId = response.data._id
+    //   this.setState({
+    //     backgroundImage: response.data[0].path, background:newBackground, backgroundId: backgroundId
+    //   });
+    //   this.uploadBackground()
+      
+    //   console.log(this.state.path)
+    // })
+    // .catch(err => {
+    //   console.log(err);
+    // });
+
+
+   
+   
   }
   
+
+  startBackground = () => {
+    axios
+    .get(`${process.env.REACT_APP_API_URL}/users/getBackground`)
+    .then(response => {
+      console.log("Hello", response);
+      let newBackground = response.data.map(image => image._id )
+      let backgroundId = response.data._id
+      this.setState({
+        backgroundImage: response.data[0].path, background:newBackground, backgroundId: backgroundId
+      });
+      this.uploadBackground()
+      
+      console.log(this.state.path)
+    })
+    .catch(err => {
+      console.log(err);
+    });
+
+  }
 
   render() {
     return (
        
-      <div id="profile-wrapper"> 
+      <div onClick={this.startBackground} id="profile-wrapper"> 
           <div className="container env" >
            <div className="profile-details extra-details">
             <h1 style={{textAlign:"left", textDecoration:"underline"}}>{this.state.space_name}</h1>
