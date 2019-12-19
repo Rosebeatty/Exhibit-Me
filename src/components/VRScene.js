@@ -12,7 +12,7 @@ class VRScene extends Component {
     super(props)
   this.state = {
       theme:this.props.user.theme,
-      backgroundPath:`/${this.props.user.theme}.jpg`,
+      backgroundPath:`/images/${this.props.user.theme}.jpg`,
       
     };
   }
@@ -34,7 +34,7 @@ class VRScene extends Component {
             <a-assets id="assets-id">
              <img id="sky" src={this.state.backgroundPath}></img>
             </a-assets>
-            <a-camera position="200 100 0"></a-camera>
+            <a-camera position="40 70 0"></a-camera>
 
             <a-sky src="#sky"></a-sky>
 

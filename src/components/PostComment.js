@@ -58,6 +58,13 @@
       this.props.getComments()
     }
 
+    cancelComment = (e) => {
+      e.preventDefault()
+      this.setState({input:""})
+      return false
+     
+    }
+
     render() {
 
         // const {comments} = this.state;
@@ -67,7 +74,7 @@
             <input id="create-comment" onChange={this.handleInput} type="text" name="comment" value={this.state.input} placeholder="Add a public comment..."></input>
          
             <button className="comments-btns">COMMENT</button>
-            <button className="comments-btns">CANCEL</button>
+            <button className="comments-btns" onClick={this.cancelComment}>CANCEL</button>
           </form>
         )
     }

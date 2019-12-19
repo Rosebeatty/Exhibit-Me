@@ -135,7 +135,7 @@ class UserPage extends Component {
       <div id="hover" onClick={this.getFile}>
         <Navbar />
         <div style={{backgroundColor:'rgba(255, 255, 255, 0.04)'}}>
-        <h2 style={{padding:"1em 0 0.5em 0"}}>Welcome to {this.state.user.username}'s Environment </h2>
+        <h2 style={{padding:"1em 0 0.5em 0"}}>Welcome to {this.state.user.username}'s Space </h2>
         <VRScene />
        {/* <UserProfile getPathname = {this.getPathname}/> */}
        <UserComments getPathname = {this.state.userpath}/>

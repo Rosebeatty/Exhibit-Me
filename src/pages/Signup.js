@@ -107,6 +107,24 @@ class Signup extends Component {
               <option id="selected" value="nature">
                 Nature
               </option>
+              <option id="selected" value="grass">
+                Grass
+              </option>
+              <option id="selected" value="trippy">
+                Trippy
+              </option>
+              <option id="selected" value="festival">
+                Festival
+              </option>
+              <option id="selected" value="winter">
+                Winter
+              </option>
+              <option id="selected" value="mountains">
+               Mountains
+              </option>
+              <option id="selected" value="canyon">
+                Canyon
+              </option>
             </select>
 
             <label>Name Your 3D Space:</label>

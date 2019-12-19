@@ -395,13 +395,13 @@ axios.delete(`${process.env.REACT_APP_API_URL}/users/deleteObject/${modelId}`)
                 name="space_name"
                 onChange={this.handleInput}
               ></input>
-              <label>Theme:</label>
+              {/* <label>Theme:</label>
               <input
                 type="text"
                 value={this.state.theme}
                 name="theme"
                 onChange={this.handleInput}
-              ></input>
+              ></input> */}
               <button style={{color:"white"}}>Save</button>
             </form> 
             </div>
@@ -458,7 +458,7 @@ axios.delete(`${process.env.REACT_APP_API_URL}/users/deleteObject/${modelId}`)
             <button id="create-btn" onClick={this.showUpload}>Create / Delete Object</button>
             <div className="profile-details" id="upload">
             
-                <ul className="env" style={{ display:"flex", flexDirection:"row", padding:"1em"}}>
+                <ul className="env" style={{ display:"flex", flexDirection:"row", padding:"1em", marginTop:"1.5em"}}>
                     <li>
                         <h2>Upload a 3D object into your space </h2>
                         <p style={{fontSize:"12px"}}>(.glb format)</p>
@@ -471,7 +471,7 @@ axios.delete(`${process.env.REACT_APP_API_URL}/users/deleteObject/${modelId}`)
                             type="file"
                             name="file"
                             ref={ref => (this.fileUpload = ref)}
-                            style={{paddingLeft:"20%"}}
+                            style={{paddingLeft:"25%", paddingTop:"2%"}}
                         />
                         <button onClick={this.showCreateButton} type="submit" value="upload" style={{color:"white"}}>
                             Save

@@ -107,7 +107,7 @@ class Home extends Component {
                     
 
                       <div className="containers">
-                        <img src={ "/" + user.theme + ".jpg" } style={{display:"block", width:"100%", height:"auto", margin:"0 auto"}}/>
+                        <img src={ "/images/" + user.theme + ".jpg" } style={{display:"block", width:"100%", height:"auto", margin:"0 auto"}}/>
                      <div className="overlay">Explore {user.space_name}</div>
                       </div>
                     {/* <br/>
