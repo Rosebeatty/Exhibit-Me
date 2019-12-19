@@ -8,13 +8,37 @@ import axios from "axios";
 
 
 class VRScene extends Component {
-  // state = {
-  //   file: null,
+  constructor(props) {
+    super(props)
+  this.state = {
+      background_image: this.props.user.background,
+      backgroundPath:""
+  };
+
+    //   file: null,
   //   path: "",
   //   theme: "",
   //   space_name: "",
   //   username: ""
-  // };
+  }
+
+  componentDidMount() {
+    console.log(this.props)
+    if (this.state.background_image === "bali") {
+      this.setState({backgroundPath: "/bali.jpg" })
+    } 
+    else if 
+      (this.state.background_image === "nature") {
+        this.setState({backgroundPath: "/eq.jpg" })
+    } else {
+      this.setState({backgroundPath: "/bali.jpg" })
+    }
+    // else if 
+    // (this.state.background === "bali") {
+    //   this.setState({backgroundPath: "/bali.jpg" })
+
+    }
+  
 
   // componentDidMount() {
     // const id = this.props.user._id;
@@ -41,11 +65,11 @@ class VRScene extends Component {
         <div id="myEmbeddedScene" >
           <Scene id="scene" embedded>
             <a-assets id="assets-id">
-             
+             <img id="sky" src={this.state.backgroundPath}></img>
             </a-assets>
             <a-camera position="200 100 0"></a-camera>
 
-            {/* <a-sky src="#sky"></a-sky> */}
+            <a-sky src="#sky"></a-sky>
 
             {/* <a-videosphere src="africa.mp4"></a-videosphere> */}
           </Scene>

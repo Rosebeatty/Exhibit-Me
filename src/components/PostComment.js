@@ -5,7 +5,7 @@
     import Comment from "../lib/comments-service";
     import axios from "axios";
     
-    class addComment extends Component {
+    class postComment extends Component {
         constructor(props) {
             super(props)
         
@@ -24,8 +24,8 @@
     e.preventDefault();
 
       // console.log(this.props.getPathname.slice(1));
-     const userId = this.props.user._id
-     console.log(userId);
+     const userId = this.props.getPathname.slice(1)
+     console.log(this.props.getPathname);
     // if (this.props.getPathname === "/profile") {
     //   userId = `/${this.props.user._id}`;
     // }
@@ -36,7 +36,6 @@
     const comment  = this.state.input;
 
     
-
     axios
       .post(`${process.env.REACT_APP_API_URL}/comments/create/${userId}`, {
         comment, userId
@@ -73,4 +72,4 @@
         )
     }
     }
-    export default withAuth(addComment)
+    export default withAuth(postComment)

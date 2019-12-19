@@ -9,6 +9,7 @@ import Navbar from "../components/Navbar";
 
 class UserPage extends Component {
   state = {
+    users:[],
     user: [],
     fileName: "",
     objects: [],
@@ -17,8 +18,10 @@ class UserPage extends Component {
     theme: "",
     space_name:"",
     username:"",
+   
     userpath:this.props.location.pathname
   };
+
 
   getUser = (id) => {
     axios
@@ -73,7 +76,7 @@ class UserPage extends Component {
   componentDidMount = () => {
     const { id } = this.props.match.params; 
     //   let objectId = this.props.user.data.objects[0]
-    
+   
 
  axios
     .get(`${process.env.REACT_APP_API_URL}/users/${id}`)
@@ -144,3 +147,6 @@ class UserPage extends Component {
 }
 
 export default withAuth(UserPage);
+
+
+

@@ -67,7 +67,7 @@ class Home extends Component {
         
      
             <div style={{backgroundColor:'rgba(255, 255, 255, 0.04)', padding:"1.2em 2em", minHeight:"90vh"}}>
-            <h1 style={{textAlign:"left", margin:"0.5em auto", width:"77%" }}>Discover New Places To Visit</h1>
+            <h1 style={{textAlign:"left", fontSize:"40px", margin:"0.9em auto 0.5em auto", width:"77%", paddingLeft:"1em", paddingBottom:"0.3em"}}>Discover</h1>
             
             <div>
           
@@ -93,11 +93,22 @@ class Home extends Component {
                 return (
                   <div key={user._id} className="one-user">
                     <Link to={`/${user._id}`}>
-                    <h3 style={{ width:"80%", margin:"0 auto"}}>{user.space_name}</h3>
-                    <h3 style={{borderBottom:"1px solid grey",  width:"80%", margin:"0 auto"}}>{user.theme}</h3>
                     
-                      <h3 style={{ width:"80%", margin:"0 auto"}}>Creator: {user.username}</h3>
-                       
+                    <div  style={{ width:"85%", fontSize:"22px", margin:"0.5em auto", borderBottom:"1px solid grey", textAlign:"center", paddingBottom:"3.5em"}}><h3>{user.space_name} </h3>
+                    <div style={{
+                      // display:"flex", flexDirection:"row", width: "30%"
+                      }}>
+                    <h3 style={{ width:"18%", margin:"0.5em auto", fontSize:"15px", textAlign:"center"}}>Theme:{user.theme}<br/>Created By {user.username}</h3>
+                    
+
+                      <div className="containers">
+                        <img src="/bali.jpg" style={{display:"block", width:"100%", height:"auto", margin:"0 auto"}}/>
+                     <div className="overlay">Explore {user.space_name}</div>
+                      </div>
+                    {/* <br/>
+                      <h3 style={{ width:"28%", margin:"0.5em 2em", fontSize:"15px", display:"flex"}}>Creator:{user.username}</h3> */}
+                      </div>  </div>
+                    
                     </Link>
                   </div>
                  

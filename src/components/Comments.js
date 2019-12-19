@@ -142,9 +142,13 @@ class Comments extends Component {
                 commentsList.map((user, index) => {
                 return (
                 <div key={user._id} className="comment">
-                  <h3>{user.comment}</h3>
+                 
+                
+                 
+                  <h3>{user.comment} </h3>
                
-                  <button onClick={(e)=>this.deleteComment(user._id)}>Delete</button>
+                  <img style={{marginTop:"-1.5em", marginBottom:"0.5em", height:"5.0vh", display:"block", cursor:"pointer"}} src="trash.png" id="delete-btn" className="comments-btns" onClick={(e)=>this.deleteComment(user._id)} />
+                  
                   <hr />
                 
                   {/* <DeleteComment getComments={this.getComments}/> */}

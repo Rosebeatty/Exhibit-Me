@@ -408,9 +408,10 @@ axios.delete(`${process.env.REACT_APP_API_URL}/users/deleteObject/${modelId}`)
             </form> 
             </div>
             <div id="create-delete" className="profile-details">
-            <button style={{color:"white", width:"70%"}} id="create-bkg-btn" onClick={this.showImageUpload}>Create / Delete Background</button>
+            <button style={{color:"white", width:"70%"}} id="create-bkg-btn" onClick={this.showImageUpload}>Change Background</button>
             <div  id="upload-bkg" style={{display:"none"}}>
                <ul className="env" style={{ display:"flex", flexDirection:"row", padding:"1em"}}>
+                                     
                     <li>
                 
                         <h2>Upload a 3D background into your space </h2>
@@ -429,7 +430,7 @@ axios.delete(`${process.env.REACT_APP_API_URL}/users/deleteObject/${modelId}`)
                             Save
                         </button>
                         
-                        <a onClick={this.deleteBackground} style={{border:"1px solid white", color:"white", backgroundColor:"transparent", width:"60%"}}>
+                        <a onClick={this.deleteBackground} style={{border:"1px solid white", color:"white", backgroundColor:"transparent", width:"60%", textAlign:"center", padding:"1em", margin:"0 auto"}}>
                         Delete current background
                         </a>
                         </form>
@@ -447,9 +448,9 @@ axios.delete(`${process.env.REACT_APP_API_URL}/users/deleteObject/${modelId}`)
                             Save
                         </button>
                         
-                        <button onClick={this.deleteBackground} style={{border:"1px solid white", color:"white", backgroundColor:"transparent", width:"60%"}}>
+                        <a onClick={this.deleteBackground} style={{border:"1px solid white", color:"white", backgroundColor:"transparent", width:"60%", textAlign:"center", padding:"1em", margin:"0 auto"}}>
                         Delete current background
-                        </button>
+                        </a>
                         </form>
                         }
              
@@ -465,7 +466,7 @@ axios.delete(`${process.env.REACT_APP_API_URL}/users/deleteObject/${modelId}`)
                         <p style={{fontSize:"12px"}}>(.glb format)</p>
                        
                        
-                      
+                        {  this.state.fileExists ?
                         <form onSubmit={this.handleSubmit} encType="multipart/form-data" >
                         <input
                             onChange={this.onChangeHandler}
@@ -477,17 +478,97 @@ axios.delete(`${process.env.REACT_APP_API_URL}/users/deleteObject/${modelId}`)
                         <button onClick={this.showCreateButton} type="submit" value="upload" style={{color:"white"}}>
                             Save
                         </button>
-                        <a style={{border:"1px solid white", color:"white", backgroundColor:"transparent", width:"60%"}} onClick={this.deleteObject}>Delete current object</a>
+                        <a style={{border:"1px solid white", color:"white", backgroundColor:"#2ab193e5", width:"60%", textAlign:"center", padding:"0.6em", margin:"1em auto", cursor:"pointer"}} onClick={this.deleteObject}>Delete current object</a>
                         </form> 
-                        
+
+                        :
+                        <form onSubmit={this.noFile} encType="multipart/form-data" >
+                        <input
+                            onChange={this.onChangeHandler}
+                            type="file"
+                            name="file"
+                            ref={ref => (this.fileUpload = ref)}
+                            style={{paddingLeft:"20%"}}
+                        />
+                        <button onClick={this.showCreateButton} type="submit" value="upload" style={{color:"white"}}>
+                            Save
+                        </button>
+                        <a style={{border:"1px solid white", color:"white", backgroundColor:"#2ab193e5", width:"60%", textAlign:"center", padding:"0.6em", margin:"1em auto", cursor:"pointer"}} onClick={this.deleteObject}>Delete current object</a>
+                        </form> 
+                        }  
                         
                     </li> 
                 </ul>
+                   
+{/* <div className="container">
+
+<div className="mySlides">
+  <div className="numbertext">1 / 6</div>
+    <img src="img_woods_wide.jpg" style={{width:"100%"}} />
+</div>
+
+<div className="mySlides">
+  <div className="numbertext">2 / 6</div>
+    <img src="img_5terre_wide.jpg" style={{width:"100%"}} />
+</div>
+
+<div className="mySlides">
+  <div className="numbertext">3 / 6</div>
+    <img src="img_mountains_wide.jpg" style={{width:"100%"}} />
+</div>
+
+<div className="mySlides">
+  <div className="numbertext">4 / 6</div>
+    <img src="img_lights_wide.jpg" style={{width:"100%"}} />
+</div>
+
+<div className="mySlides">
+  <div className="numbertext">5 / 6</div>
+    <img src="img_nature_wide.jpg" style={{width:"100%"}} />
+</div>
+
+<div className="mySlides">
+  <div className="numbertext">6 / 6</div>
+    <img src="img_snow_wide.jpg" style={{width:"100%"}} />
+</div>
+
+<a className="prev" onClick="plusSlides(-1)">&#10094;</a>
+<a className="next" onClick="plusSlides(1)">&#10095;</a>
+
+
+<div className="caption-container">
+  <p id="caption"></p>
+</div>
+
+<div className="row">
+  <div className="column">
+    <img className="demo cursor" src="img_woods.jpg" style={{width:"100%"}} onClick="currentSlide(1)" alt="The Woods" />
+  </div>
+  <div className="column">
+    <img className="demo cursor" src="img_5terre.jpg" style={{width:"100%"}} onClick="currentSlide(2)" alt="Cinque Terre" />
+  </div>
+  <div className="column">
+    <img className="demo cursor" src="img_mountains.jpg" style={{width:"100%"}} onClick="currentSlide(3)" alt="Mountains and fjords" />
+  </div>
+  <div className="column">
+    <img className="demo cursor" src="img_lights.jpg" style={{width:"100%"}} onClick="currentSlide(4)" alt="Northern Lights" />
+  </div>
+  <div className="column">
+    <img className="demo cursor" src="img_nature.jpg" style={{width:"100%"}} onClick="currentSlide(5)" alt="Nature and sunrise" />
+  </div>
+  <div className="column">
+    <img className="demo cursor" src="img_snow.jpg" style={{width:"100%"}} onClick="currentSlide(6)" alt="Snowy Mountains" />
+  </div>
+</div>
+</div> */}
+
+
+
          </div>
          </div>
        
         </div>
-        {/* <hr style={{border:"0.5px solid grey", width:"70%", margin: "0 auto"}}/> */}
+        {/* <hr style={{border:"0.5px solid grey", width:""70%", margin: "0 auto"}}/> */}
         <Comments comments={this.state.comments}/>
 
        

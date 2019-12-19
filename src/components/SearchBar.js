@@ -1,32 +1,46 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import { withAuth } from "../lib/AuthProvider";
 import axios from "axios";
 
+
 class SearchBar extends Component {
   state = {
+    users:[],
     input: "",
-  };
-
-  handleInput = e => {
-    const { value } = e.target;
-    this.props.filterUsers(value);
-    this.setState({ input: value });
+    selected: [],
+    themes:[],
+    selectedThemes: [],
   };
 
   
 
+  handleInput = e => {
+    const { value } = e.target;
+    this.props.filterUsers(value); 
+    this.setState({ input: value });
+    
+  };
+
+ 
+
   render() {
-    return (
+
+   
+   
+   return (
       <li id="search-bar">
         <input
+        id="search-input"
           type="text"
           name="search"
           onChange={this.handleInput}
           value={this.state.input}
-          placeholder="Search"
+          placeholder="Search..."
         />
+        
         <button id="search-button">Search</button>
+         
       </li>
     );
   }

@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { withAuth } from "../lib/AuthProvider";
 import Comment from "../lib/comments-service";
 import axios from "axios";
-import AddComment from "./AddComment";
+import PostComment from "./PostComment";
 
 
 class UserComments extends Component {
@@ -28,17 +28,10 @@ class UserComments extends Component {
     axios
       .get(`${process.env.REACT_APP_API_URL}/users${id}`)
       .then(response => {
-        //PROBLEM
     
         this.setState({ user: response });
         console.log(response);
-    
-         
-          // if (comment._id === user.comment) {
-          //     return user.comment
-          // }
-  
-          this.setState({userComments: response.data})
+       this.setState({userComments: response.data})
        
         })
         .catch(err => {
@@ -57,19 +50,14 @@ class UserComments extends Component {
   };
 
   getComments = () => {
-
     const id = this.props.getPathname;
-    const { user } = this.state
-
-
+    const { user } = this.state;
     console.log(this.props)
 
     axios
     .get(`${process.env.REACT_APP_API_URL}/comments${id}`)
     .then(response => {
-      //PROBLEM
-
-      
+     
       this.setState({ userComments: response.data.comments });
       console.log(response);
     
@@ -79,8 +67,7 @@ class UserComments extends Component {
       .catch(err => {
           console.log(err);
         });
-        
-  }
+        }
 
 
   findCommon = () => {
@@ -131,7 +118,7 @@ class UserComments extends Component {
       <div id="comments-wrapper">
         <h3>Comments</h3>
         <div className="comment">
-          <AddComment getPathname={this.props.getPathname} getComments={this.getComments} />
+          <PostComment getPathname={this.props.getPathname} getComments={this.getComments} />
           <div>
             {
                              
