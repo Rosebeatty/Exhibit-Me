@@ -88,7 +88,7 @@ class UserPage extends Component {
        theme: user.theme,
        space_name: user.space_name,
        username: user.username,
-      objectId: user.objects.pop()
+       objects: user.objects
       })
     
     
@@ -106,7 +106,7 @@ class UserPage extends Component {
 
     getFile = () => {
       console.log(this.state.objectId)
-      let objectId = this.state.objectId
+      let objectId = this.state.objects.pop()
 
     axios
     .get(`${process.env.REACT_APP_API_URL}/users/filename/${objectId}`)
@@ -118,13 +118,13 @@ class UserPage extends Component {
        fileName: response.data.path
       })
       
-        this.uploadFile()
       
-    
+      
     })
     .catch(err => {
       console.log(err);
     });
+    this.uploadFile()
     
   }
 

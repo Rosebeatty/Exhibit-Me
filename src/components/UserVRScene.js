@@ -63,12 +63,19 @@ class UserVRScene extends Component {
       
   }
 
+
+  startVR = () => {
+    document.getElementById('')
+
+  }
+
   render() {
     console.log(this.props);
     
     return (
       <div className="vrscene" >
         <div id="myEmbeddedScene" onClick={this.upload}>
+          <button id="start" onClick={this.startVR}>CLICK TO START</button>
           <Scene id="scene" embedded>
             <a-assets id="assets-id">
              {/* <img id="sky" ></img> */}
