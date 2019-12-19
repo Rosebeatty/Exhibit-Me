@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import VRScene from "./../components/VRScene";
+import UserVRScene from "./../components/UserVRScene";
 import axios from "axios";
 import { withAuth } from "../lib/AuthProvider";
 // import UserProfile from "../components/UserProfile"
@@ -88,7 +88,7 @@ class UserPage extends Component {
        theme: user.theme,
        space_name: user.space_name,
        username: user.username,
-      objectId: user.objects
+      objectId: user.objects.pop()
       })
     
     
@@ -136,7 +136,7 @@ class UserPage extends Component {
         <Navbar />
         <div style={{backgroundColor:'rgba(255, 255, 255, 0.04)'}}>
         <h2 style={{padding:"1em 0 0.5em 0"}}>Welcome to {this.state.user.username}'s Space </h2>
-        <VRScene />
+        <UserVRScene theme={this.state.theme}/>
        {/* <UserProfile getPathname = {this.getPathname}/> */}
        <UserComments getPathname = {this.state.userpath}/>
       </div>

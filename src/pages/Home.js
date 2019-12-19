@@ -3,7 +3,7 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import { withAuth } from "../lib/AuthProvider";
 import Navbar from "../components/Navbar";
-import Profile from '../components/VRScene'
+import Profile from '../components/UserVRScene'
 
 
 class Home extends Component {
