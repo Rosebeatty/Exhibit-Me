@@ -11,17 +11,21 @@ class Home extends Component {
     users: [],
     selected: [],
     themes:[],
-    selectedThemes: []
+    background:"",
+    selectedThemes: [],
+    
   };
 
   getAllUsers = () => {
     axios
       .get(`${process.env.REACT_APP_API_URL}/users`)
       .then(response => {
-        console.log(response.data[0].username);
+        console.log(response.data);
         const users = response.data;
         let themes = users.map(user => user.theme)
-        console.log(themes)
+        // let bkg = themes.map(theme => theme )
+        // let backgroundImg = `/${users.theme}.jpg`
+        // console.log(bkg)
         this.setState({ users: users, selected: users, themes:themes });
         // this.themeAndUserEqual()
       })
@@ -38,7 +42,8 @@ class Home extends Component {
 
   componentDidMount = () => {
     this.getAllUsers()
-   
+    console.log(this.state.theme);
+    
   }
  
 
@@ -102,7 +107,7 @@ class Home extends Component {
                     
 
                       <div className="containers">
-                        <img src="/bali.jpg" style={{display:"block", width:"100%", height:"auto", margin:"0 auto"}}/>
+                        <img src={ "/" + user.theme + ".jpg" } style={{display:"block", width:"100%", height:"auto", margin:"0 auto"}}/>
                      <div className="overlay">Explore {user.space_name}</div>
                       </div>
                     {/* <br/>

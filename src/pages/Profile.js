@@ -80,7 +80,7 @@ class Profile extends Component {
             Welcome back to {this.state.space_name}, {this.state.username}
           </h1>
         </div>
-        <VRScene  />
+        <VRScene background = {this.background} />
         <EditProfile  />
         </div>
         

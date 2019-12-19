@@ -17,7 +17,7 @@ class Profile extends Component {
     path: "",
     objects: [],
     backgroundImage:"",
-    background: null,
+    // background: null,
     bkgImages: [],
     fileExists: true
   };
@@ -28,12 +28,12 @@ class Profile extends Component {
     });
   };
 
-  onBkgChangeHandler = e => {
-    this.setState({
-      background: e.target.files[0]
+  // onBkgChangeHandler = e => {
+  //   this.setState({
+  //     background: e.target.files[0]
      
-    });
-  };
+  //   });
+  // };
 
   handleSubmit = e => {
     e.preventDefault();
@@ -65,53 +65,53 @@ class Profile extends Component {
 
   }
 
-  handleImageSubmit = e => {
-    e.preventDefault();
-    let id = this.props.user._id
-    let file = this.state.background;
-    let formData = new FormData();
-    formData.append("file", file);
-    console.log(file)
-    console.log(this.state.background)
-    const config = {
-      headers: {
-        "content-type": "multipart/form-data"
-      }
-    };
+  // handleImageSubmit = e => {
+  //   e.preventDefault();
+  //   let id = this.props.user._id
+  //   let file = this.state.background;
+  //   let formData = new FormData();
+  //   formData.append("file", file);
+  //   console.log(file)
+  //   console.log(this.state.background)
+  //   const config = {
+  //     headers: {
+  //       "content-type": "multipart/form-data"
+  //     }
+  //   };
 
-    axios
-      .post(`${process.env.REACT_APP_API_URL}/users/uploadBackground/${id}`, formData, config)
-      .then(res => {
-        alert("The file was successfully uploaded");
-        console.log(res)
-      const theFile = this.backgroundUpload.files[0];
-      this.setState({ backgroundImage:theFile.name, bkgImages: res.data.backgrounds });
-      this.uploadBackground()
+  //   axios
+  //     .post(`${process.env.REACT_APP_API_URL}/users/uploadBackground/${id}`, formData, config)
+  //     .then(res => {
+  //       alert("The file was successfully uploaded");
+  //       console.log(res)
+  //     const theFile = this.backgroundUpload.files[0];
+  //     this.setState({ backgroundImage:theFile.name, bkgImages: res.data.backgrounds });
+  //     this.uploadBackground()
       
-      })
-      .catch(error => {
-          console.log(error)
-      });
+  //     })
+  //     .catch(error => {
+  //         console.log(error)
+  //     });
 
-  }
+  // }
 
-  uploadBackground = () => {
-    console.log(this.state.backgroundImage)
-    let { backgroundImage } = this.state;
+  // uploadBackground = () => {
+  //   console.log(this.state.backgroundImage)
+  //   let { backgroundImage } = this.state;
   
-    var assetImg = document.createElement("img");
-    assetImg.setAttribute("src", `${process.env.REACT_APP_API_URL}/images/` + backgroundImage);
-    assetImg.setAttribute("id", backgroundImage);
-    assetImg.setAttribute("crossorigin", "anonymous");
-    document.getElementById("assets-id").appendChild(assetImg)
+  //   var assetImg = document.createElement("img");
+  //   assetImg.setAttribute("src", `${process.env.REACT_APP_API_URL}/images/` + backgroundImage);
+  //   assetImg.setAttribute("id", backgroundImage);
+  //   assetImg.setAttribute("crossorigin", "anonymous");
+  //   document.getElementById("assets-id").appendChild(assetImg)
     
-    var skyId = '#' + assetImg.id;
+  //   var skyId = '#' + assetImg.id;
 
-    var bkgImg = document.createElement('a-sky')
-    bkgImg.setAttribute("src", skyId);
-    document.getElementById("scene").appendChild(bkgImg);
-    console.log(bkgImg);
-  }
+  //   var bkgImg = document.createElement('a-sky')
+  //   bkgImg.setAttribute("src", skyId);
+  //   document.getElementById("scene").appendChild(bkgImg);
+  //   console.log(bkgImg);
+  // }
 
   uploadFile = () => {
     let { fileName } = this.state;
@@ -157,12 +157,12 @@ class Profile extends Component {
       uploadForm.style.display = "none";
   }
 
-  showBkgCreateButton = () => {
-    const createButton = document.getElementById("create-bkg-btn");
-    createButton.style.display = "block";
-    const uploadForm = document.getElementById("upload-bkg");
-    uploadForm.style.display = "none";
-}
+//   showBkgCreateButton = () => {
+//     const createButton = document.getElementById("create-bkg-btn");
+//     createButton.style.display = "block";
+//     const uploadForm = document.getElementById("upload-bkg");
+//     uploadForm.style.display = "none";
+// }
 
   showUpload = (e) => {
     e.preventDefault();
@@ -172,13 +172,13 @@ class Profile extends Component {
     createButton.style.display = "none";
   };
 
-  showImageUpload = (e) => {
-    e.preventDefault();
-    const uploadForm = document.getElementById("upload-bkg");
-    uploadForm.style.display = "block";
-    const createButton = document.getElementById("create-bkg-btn");
-    createButton.style.display = "none";
-  };
+  // showImageUpload = (e) => {
+  //   e.preventDefault();
+  //   const uploadForm = document.getElementById("upload-bkg");
+  //   uploadForm.style.display = "block";
+  //   const createButton = document.getElementById("create-bkg-btn");
+  //   createButton.style.display = "none";
+  // };
 
   handleInput = event => {
     const { name, value } = event.target;
@@ -237,27 +237,27 @@ axios.delete(`${process.env.REACT_APP_API_URL}/users/deleteObject/${modelId}`)
 
   }
 
-  deleteBackground = () => {
-    let backgroundId = this.state.backgroundId
-    console.log(this.state.backgroundId)
+//   deleteBackground = () => {
+//     let backgroundId = this.state.backgroundId
+//     console.log(this.state.backgroundId)
  
- axios.delete(`${process.env.REACT_APP_API_URL}/users/deleteBackground/${backgroundId}`)
- .then(response => {
+//  axios.delete(`${process.env.REACT_APP_API_URL}/users/deleteBackground/${backgroundId}`)
+//  .then(response => {
      
-     this.setState({ backgroundImage:null})
-     let file = document.getElementById(this.state.backgroundImage)
-     file.remove()
-       console.log("Hello", response);
+//      this.setState({ backgroundImage:null})
+//      let file = document.getElementById(this.state.backgroundImage)
+//      file.remove()
+//        console.log("Hello", response);
      //   const user = response.data;
      //   console.log(user)
      //   this.setState({path: null, file:null})
      //   this.setState({initalComments: user.comments})
-   })
-   .catch(err => {
-       console.log(err);
-     });
+  //  })
+  //  .catch(err => {
+  //      console.log(err);
+  //    });
  
-   }
+  //  }
 
    noFile = (e) => {
      e.preventDefault()
@@ -323,37 +323,35 @@ axios.delete(`${process.env.REACT_APP_API_URL}/users/deleteObject/${modelId}`)
     // .catch(err => {
     //   console.log(err);
     // });
-
-
-   
-   
   }
   
 
-  startBackground = () => {
-    axios
-    .get(`${process.env.REACT_APP_API_URL}/users/getBackground`)
-    .then(response => {
-      console.log("Hello", response);
-      let newBackground = response.data.map(image => image._id )
-      let backgroundId = response.data._id
-      this.setState({
-        backgroundImage: response.data[0].path, background:newBackground, backgroundId: backgroundId
-      });
-      this.uploadBackground()
+  // startBackground = () => {
+  //   axios
+  //   .get(`${process.env.REACT_APP_API_URL}/users/getBackground`)
+  //   .then(response => {
+  //     console.log("Hello", response);
+  //     let newBackground = response.data.map(image => image._id )
+  //     let backgroundId = response.data._id
+  //     this.setState({
+  //       backgroundImage: response.data[0].path, background:newBackground, backgroundId: backgroundId
+  //     });
+  //     this.uploadBackground()
       
-      console.log(this.state.path)
-    })
-    .catch(err => {
-      console.log(err);
-    });
+  //     console.log(this.state.path)
+  //   })
+  //   .catch(err => {
+  //     console.log(err);
+  //   });
 
-  }
+  // }
 
   render() {
     return (
        
-      <div onClick={this.startBackground} id="profile-wrapper"> 
+      <div 
+      // onClick={this.startBackground}
+       id="profile-wrapper"> 
           <div className="container env" >
            <div className="profile-details extra-details">
             <h1 style={{textAlign:"left", textDecoration:"underline"}}>{this.state.space_name}</h1>
@@ -407,7 +405,7 @@ axios.delete(`${process.env.REACT_APP_API_URL}/users/deleteObject/${modelId}`)
               <button style={{color:"white"}}>Save</button>
             </form> 
             </div>
-            <div id="create-delete" className="profile-details">
+            {/* <div id="create-delete" className="profile-details">
             <button style={{color:"white", width:"70%"}} id="create-bkg-btn" onClick={this.showImageUpload}>Change Background</button>
             <div  id="upload-bkg" style={{display:"none"}}>
                <ul className="env" style={{ display:"flex", flexDirection:"row", padding:"1em"}}>
@@ -456,7 +454,7 @@ axios.delete(`${process.env.REACT_APP_API_URL}/users/deleteObject/${modelId}`)
              
                    </li> 
                 </ul>
-              </div>
+              </div> */}
             <button id="create-btn" onClick={this.showUpload}>Create / Delete Object</button>
             <div className="profile-details" id="upload">
             
@@ -499,76 +497,11 @@ axios.delete(`${process.env.REACT_APP_API_URL}/users/deleteObject/${modelId}`)
                         
                     </li> 
                 </ul>
-                   
-{/* <div className="container">
-
-<div className="mySlides">
-  <div className="numbertext">1 / 6</div>
-    <img src="img_woods_wide.jpg" style={{width:"100%"}} />
-</div>
-
-<div className="mySlides">
-  <div className="numbertext">2 / 6</div>
-    <img src="img_5terre_wide.jpg" style={{width:"100%"}} />
-</div>
-
-<div className="mySlides">
-  <div className="numbertext">3 / 6</div>
-    <img src="img_mountains_wide.jpg" style={{width:"100%"}} />
-</div>
-
-<div className="mySlides">
-  <div className="numbertext">4 / 6</div>
-    <img src="img_lights_wide.jpg" style={{width:"100%"}} />
-</div>
-
-<div className="mySlides">
-  <div className="numbertext">5 / 6</div>
-    <img src="img_nature_wide.jpg" style={{width:"100%"}} />
-</div>
-
-<div className="mySlides">
-  <div className="numbertext">6 / 6</div>
-    <img src="img_snow_wide.jpg" style={{width:"100%"}} />
-</div>
-
-<a className="prev" onClick="plusSlides(-1)">&#10094;</a>
-<a className="next" onClick="plusSlides(1)">&#10095;</a>
-
-
-<div className="caption-container">
-  <p id="caption"></p>
-</div>
-
-<div className="row">
-  <div className="column">
-    <img className="demo cursor" src="img_woods.jpg" style={{width:"100%"}} onClick="currentSlide(1)" alt="The Woods" />
-  </div>
-  <div className="column">
-    <img className="demo cursor" src="img_5terre.jpg" style={{width:"100%"}} onClick="currentSlide(2)" alt="Cinque Terre" />
-  </div>
-  <div className="column">
-    <img className="demo cursor" src="img_mountains.jpg" style={{width:"100%"}} onClick="currentSlide(3)" alt="Mountains and fjords" />
-  </div>
-  <div className="column">
-    <img className="demo cursor" src="img_lights.jpg" style={{width:"100%"}} onClick="currentSlide(4)" alt="Northern Lights" />
-  </div>
-  <div className="column">
-    <img className="demo cursor" src="img_nature.jpg" style={{width:"100%"}} onClick="currentSlide(5)" alt="Nature and sunrise" />
-  </div>
-  <div className="column">
-    <img className="demo cursor" src="img_snow.jpg" style={{width:"100%"}} onClick="currentSlide(6)" alt="Snowy Mountains" />
-  </div>
-</div>
-</div> */}
-
-
-
-         </div>
+              </div>   
          </div>
        
-        </div>
-        {/* <hr style={{border:"0.5px solid grey", width:""70%", margin: "0 auto"}}/> */}
+       
+        
         <Comments comments={this.state.comments}/>
 
        

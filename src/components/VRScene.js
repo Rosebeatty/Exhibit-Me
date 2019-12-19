@@ -11,58 +11,25 @@ class VRScene extends Component {
   constructor(props) {
     super(props)
   this.state = {
-      background_image: this.props.user.background,
-      backgroundPath:""
-  };
-
-    //   file: null,
-  //   path: "",
-  //   theme: "",
-  //   space_name: "",
-  //   username: ""
+      theme:this.props.user.theme,
+      backgroundPath:`/${this.props.user.theme}.jpg`,
+      
+    };
   }
 
   componentDidMount() {
-    console.log(this.props)
-    if (this.state.background_image === "bali") {
-      this.setState({backgroundPath: "/bali.jpg" })
-    } 
-    else if 
-      (this.state.background_image === "nature") {
-        this.setState({backgroundPath: "/eq.jpg" })
-    } else {
-      this.setState({backgroundPath: "/bali.jpg" })
-    }
-    // else if 
-    // (this.state.background === "bali") {
-    //   this.setState({backgroundPath: "/bali.jpg" })
-
-    }
+   console.log(this.props);
   
+   
+  }
 
-  // componentDidMount() {
-    // const id = this.props.user._id;
-    // axios
-    //   .get(`${process.env.REACT_APP_API_URL}/users/${id}`)
-    //   .then(response => {
-    //     console.log("Hello", response.data.username);
-    //     const user = response.data;
-    //     this.setState({
-    //       username: user.username,
-    //       space_name: user.space_name,
-    //       theme: user.theme
-    //     });
-    //   })
-    // // const {id} = this.props
-    // this.props.getUser()
-  // }
-  
+
   render() {
     console.log(this.props);
     
     return (
       <div className="vrscene" >
-        <div id="myEmbeddedScene" >
+        <div id="myEmbeddedScene">
           <Scene id="scene" embedded>
             <a-assets id="assets-id">
              <img id="sky" src={this.state.backgroundPath}></img>
