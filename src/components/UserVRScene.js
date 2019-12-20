@@ -5,6 +5,7 @@ import "aframe";
 import { Entity, Scene } from "aframe-react";
 import "aframe-extras";
 import axios from "axios";
+import { findByLabelText } from "@testing-library/react";
 
 
 class UserVRScene extends Component {
@@ -18,10 +19,6 @@ class UserVRScene extends Component {
     };
   }
 
-  componentDidMount() {
-  
-  
-  }
 
   getUser = () => {
    let id = this.state.userId
@@ -65,8 +62,11 @@ class UserVRScene extends Component {
 
 
   startVR = () => {
-    document.getElementById('')
 
+    let node = document.getElementById("startbtn");
+    if (node.parentNode) {
+    node.parentNode.removeChild(node);
+}
   }
 
   render() {
@@ -74,9 +74,10 @@ class UserVRScene extends Component {
     
     return (
       <div className="vrscene" >
-        <div id="myEmbeddedScene" onClick={this.upload}>
-          <button id="start" onClick={this.startVR}>CLICK TO START</button>
+        <div id="start" id="myEmbeddedScene" onClick={this.upload}>
+          <button id="startbtn" style={{color:"white", border:"none", margin:"12em auto", fontSize:"20px"}} onClick={this.startVR}>CLICK TO START</button>
           <Scene id="scene" embedded>
+          
             <a-assets id="assets-id">
              {/* <img id="sky" ></img> */}
             </a-assets>

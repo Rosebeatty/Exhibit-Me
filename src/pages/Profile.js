@@ -54,21 +54,21 @@ class Profile extends Component {
     };
   
   
-    // filterUsers = input => {
-    //   console.log(this.state.users);
-    //   console.log(this.state.selected);
+    filterUsers = input => {
+      console.log(this.state.users);
+      console.log(this.state.selected);
   
     
-    //   let selected = this.state.users.filter(el => {
-    //       return el.username.toLowerCase().includes(input.toLowerCase()) || 
-    //       el.theme.toLowerCase().includes(input.toLowerCase()) ||
-    //       el.space_name.toLowerCase().includes(input.toLowerCase())
-    //     });
+      let selected = this.state.users.filter(el => {
+          return el.username.toLowerCase().includes(input.toLowerCase()) || 
+          el.theme.toLowerCase().includes(input.toLowerCase()) ||
+          el.space_name.toLowerCase().includes(input.toLowerCase())
+        });
    
      
-    //   console.log(selected);
-    //   this.setState({ selected: selected});
-    // };
+      console.log(selected);
+      this.setState({ selected: selected});
+    };
 
   render() {
     return (

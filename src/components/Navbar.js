@@ -8,10 +8,11 @@ class Navbar extends Component {
   constructor(props) {
     super(props)
   this.state = {
-    filterUsers: this.props.filterUsers
+   
   };
   }
   
+
 
   render() {
     const { user, logout, isLoggedin } = this.props;
@@ -31,7 +32,7 @@ class Navbar extends Component {
               <li>
                 <Link to="/profile">Profile</Link>
               </li>
-              <SearchBar filterUsers={this.state.filterUsers}  />
+              <SearchBar filterUsers={this.props.filterUsers}  />
 
               <li id="logout-btn">
                 <button onClick={logout}>Logout</button>

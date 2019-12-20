@@ -16,6 +16,7 @@ class UserPage extends Component {
     file: null,
     path: "",
     theme: "",
+    selected:[],
     space_name:"",
     username:"",
    
@@ -23,25 +24,25 @@ class UserPage extends Component {
   };
 
 
-  getUser = (id) => {
-    axios
-      .get(`${process.env.REACT_APP_API_URL}/users/${id}`)
-      .then(response => {
-        console.log(response);
-        const user = response.data;
-        this.setState({
-            user: user,
-            theme: user.theme,
-            space_name: user.space_name,
-            username: user.username,
-            objectId:""
+  // getUser = (id) => {
+  //   axios
+  //     .get(`${process.env.REACT_APP_API_URL}/users/${id}`)
+  //     .then(response => {
+  //       console.log(response);
+  //       const user = response.data;
+  //       this.setState({
+  //           user: user,
+  //           theme: user.theme,
+  //           space_name: user.space_name,
+  //           username: user.username,
+  //           objectId:""
            
-          });
-          console.log(this.state.user)
-        return user
-      })
-      .catch(err => console.log(err));
-  };
+  //         });
+  //         console.log(this.state.user)
+  //       return user
+  //     })
+  //     .catch(err => console.log(err));
+  // };
 
 
   uploadFile = () => {
@@ -90,14 +91,15 @@ class UserPage extends Component {
        username: user.username,
        objects: user.objects
       })
-    
+      this.getAllUsers()
+      console.log(this.state.theme);
     
     })
     .catch(err => {
       console.log(err);
     });
   
-    
+    this.getAllUsers()
   }
 
     // console.log(this.props.user)
@@ -128,12 +130,48 @@ class UserPage extends Component {
     
   }
 
+  getAllUsers = () => {
+    axios
+      .get(`${process.env.REACT_APP_API_URL}/users`)
+      .then(response => {
+        console.log(response.data);
+        const users = response.data;
+        // let themes = users.map(user => user.theme)
+        // let bkg = themes.map(theme => theme )
+        // let backgroundImg = `/${users.theme}.jpg`
+        // console.log(bkg)
+        this.setState({ users: users, selected: users});
+        // this.themeAndUserEqual()
+      })
+      .catch(err => console.log(err));
+  };
+
+
+ 
+
+  filterUsers = input => {
+    console.log(this.state.users);
+    console.log(this.state.selected);
+
+  
+    let selected = this.state.users.filter(el => {
+        return el.username.toLowerCase().includes(input.toLowerCase()) || 
+        el.theme.toLowerCase().includes(input.toLowerCase()) ||
+        el.space_name.toLowerCase().includes(input.toLowerCase())
+      });
+ 
+   
+    console.log(selected);
+    this.setState({ selected: selected});
+  };
+
+
   
   
   render() {
     return (
       <div id="hover" onClick={this.getFile}>
-        <Navbar />
+        <Navbar filterUsers={this.filterUsers}/>
         <div style={{backgroundColor:'rgba(255, 255, 255, 0.04)'}}>
         <h2 style={{padding:"1em 0 0.5em 0"}}>Welcome to {this.state.user.username}'s Space </h2>
         <UserVRScene theme={this.state.theme}/>
