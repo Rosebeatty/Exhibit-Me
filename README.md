@@ -97,10 +97,11 @@ A social network created with React, A-Frame, MongoDB and NodeJs for artists and
 
 ## Models
 
-User model
+Users model
 
 ```javascript
 {
+ {
   username: String,
   email: String,
   password: String,
@@ -108,11 +109,12 @@ User model
   theme: String,
   objects: [ {type: Schema.Types.ObjectId, ref:'Model'} ],
   comments: [{type: Schema.Types.ObjectId, ref:'Comment'}],
-}, {
+ }, {
   timestamps: {
     createdAt: 'created_at',
     updatedAt: 'updated_at'
   } 
+ }
 }
 ```
 
@@ -121,13 +123,14 @@ User model
 Object model
 
 ```javascript
+{ 
  {
   path: String,
   user_id: [{type: Schema.Types.ObjectId, ref: 'User'}]
-}, {
+ }, {
   timestamps: { createdAt: "created_at", updatedAt: "updated_at" }
-}
  }
+}
 ```
 
 
@@ -141,8 +144,7 @@ Comment model
 
 }, {
   timestamps: { createdAt: "created_at", updatedAt: "updated_at" }
-});
-
+   }
  }
 ```
 
