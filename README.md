@@ -164,7 +164,6 @@ Comment model
 | PUT       | `/users/update/:id`     | {id} |                | 400          | Updates user info                        |
 | DELETE   | `/users/delete/:id`      | {id}                         |                |              | Deletes user                        | | GET   | `/users/filename/`      | {id}                         |     |              | Gets filename of the last object saved in database  |
 | GET   | `/users/filename/:id`      | {id}                          | |              | Gets filename of object from user profile           |
-
 | POST        | `/comments` | {id}     | 200            | 404          | Find All Comments                  |
 | POST        | `/comments/:id` | {id}     | 200            | 404                   | Find All Comments Connected to User  |
 | POST        | `/comments/create/:id` | {id}     | 200            | 404          | Adds comment to specified user                  |
@@ -178,7 +177,7 @@ Comment model
 
 ### Trello/Kanban
 
-[Link to your trello board](https://trello.com/b/m0xBhHN9/exhibit-me) 
+[Link to my trello board](https://trello.com/b/m0xBhHN9/exhibit-me) 
 
 
 ### Git
@@ -188,13 +187,7 @@ Comment model
 
 [Server repository Link](https://github.com/Rosebeatty/Exhibit-Me-api)
 
-[Deployed App Link](http://exhibitme-herokuapp.com)
-
-### Slides
-
-The url to your presentation slides
-
-[Slides Link](http://slides.com)
+[Deployed Exhibit Me App](http://exhibitme-herokuapp.com)
 
 
 
