@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Link, Redirect } from "react-router-dom";
 import { withAuth } from "../lib/AuthProvider";
 import axios from "axios";
+import Home from '../pages/Home'
 
 class SearchBar extends Component {
   state = {
@@ -9,7 +10,8 @@ class SearchBar extends Component {
     input: "",
     selected: [],
     themes: [],
-    selectedThemes: []
+    selectedThemes: [],
+    referrer: ""
     // goHome: false,
   };
 
@@ -17,12 +19,21 @@ class SearchBar extends Component {
     console.log(this.props);
     const { value } = e.target;
     this.props.filterUsers(value);
-    this.setState({ input: value, goHome: true });
+    this.setState({ input: value});
+    
   };
 
+  goHome = () => {
+    this.setState({referrer: '/'});
+    
+  }
+
   render() {
+
+    const {referrer} = this.state;
+
     return (
-      <li>
+      <li onClick={this.goHome}>
         <input
           id="search-input"
           type="text"
@@ -31,33 +42,20 @@ class SearchBar extends Component {
           value={this.state.input}
           placeholder="Search..."
         />
-
-        {this.state.input.length > 1 && (
+        
+        { referrer && <Redirect to={referrer} />}
+        {/* {this.state.input.length > 0 && (
           <Redirect
             to={{
               pathname: "/",
-              state: { input: this.state.input }
+              state: { selected: this.state.selected }
             }}
           />
-        )}
+        )} */}
         <button onSubmit={this.submit} type="submit" id="search-button">
           Search
         </button>
       </li>
-
-      // <li id="search-bar">
-      //   <input
-      //   id="search-input"
-      //     type="text"
-      //     name="search"
-      //     onChange={this.handleInput}
-      //     value={this.state.input}
-      //     placeholder="Search..."
-      //   />
-
-      //   <button id="search-button">Search</button>
-
-      // </li>
     );
   }
 }

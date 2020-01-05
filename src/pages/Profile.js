@@ -31,7 +31,6 @@ class Profile extends Component {
           background_image: user.background,
         });
         this.getAllUsers()
-       
       })
       .catch(err => {
         console.log(err);
@@ -73,7 +72,7 @@ class Profile extends Component {
   render() {
     return (
       <div>
-        <Navbar />
+        <Navbar filterUsers={this.filterUsers}/>
         <div style={{backgroundColor:'rgba(255, 255, 255, 0.04)'}}>
         <div className="vrscene-h1">
           <h1 style={{marginTop:"0.5em"}}>

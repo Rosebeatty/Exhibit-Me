@@ -1,10 +1,8 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
 import { withAuth } from "../lib/AuthProvider";
 import "aframe";
-import { Entity, Scene } from "aframe-react";
+import { Scene } from "aframe-react";
 import "aframe-extras";
-import axios from "axios";
 
 
 class VRScene extends Component {
@@ -16,13 +14,6 @@ class VRScene extends Component {
       
     };
   }
-
-  componentDidMount() {
-   console.log(this.props);
-  
-   
-  }
-
 
   render() {
     console.log(this.props);
@@ -37,7 +28,8 @@ class VRScene extends Component {
             <a-camera position="40 10 0"></a-camera>
 
             <a-sky src="#sky"></a-sky>
-
+            {/* <a-videosphere src="worm.mp4"></a-videosphere> */}
+            {/* <a-sound src="src: url(Will.mpeg)" autoplay="true" position="0 2 5"></a-sound> */}
             {/* <a-videosphere src="africa.mp4"></a-videosphere> */}
           </Scene>
          

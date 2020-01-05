@@ -2,17 +2,12 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { withAuth } from "../lib/AuthProvider";
 import SearchBar from "./SearchBar";
-import axios from "axios";
 
 class Navbar extends Component {
-  constructor(props) {
-    super(props)
-  this.state = {
-   
+  submitSearch = e => {
+    e.preventDefault();
+    this.props.history.push(`/`);
   };
-  }
-  
-
 
   render() {
     const { user, logout, isLoggedin } = this.props;
@@ -32,7 +27,10 @@ class Navbar extends Component {
               <li>
                 <Link to="/profile">Profile</Link>
               </li>
-              <SearchBar filterUsers={this.props.filterUsers}  />
+              <SearchBar
+                submitSearch={this.submitSearch}
+                filterUsers={this.props.filterUsers}
+              />
 
               <li id="logout-btn">
                 <button onClick={logout}>Logout</button>
@@ -55,10 +53,7 @@ class Navbar extends Component {
                   <button className="logout-btn">Signup</button>{" "}
                 </Link>
               </li>
-
-     
             </ul>
-           
           </nav>
         )}
       </div>

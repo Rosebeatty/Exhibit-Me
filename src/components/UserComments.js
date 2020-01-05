@@ -1,14 +1,11 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
 import { withAuth } from "../lib/AuthProvider";
-import Comment from "../lib/comments-service";
 import axios from "axios";
 import PostComment from "./PostComment";
 
-
 class UserComments extends Component {
   state = {
-      user: [],
+    user: [],
     comments: [],
     input: "",
     commentId: [],
@@ -22,26 +19,22 @@ class UserComments extends Component {
     // console.log(this.props);
 
     const id = this.props.getPathname;
-   
-    console.log(this.props)
+
+    console.log(this.props);
 
     axios
       .get(`${process.env.REACT_APP_API_URL}/users${id}`)
       .then(response => {
-    
         this.setState({ user: response });
         console.log(response);
-       this.setState({userComments: response.data})
-       
-        })
-        .catch(err => {
-            console.log(err);
-          });
-           
-
+        this.setState({ userComments: response.data });
+      })
+      .catch(err => {
+        console.log(err);
+      });
 
     this.getComments();
-    
+
     console.log(this.props);
     console.log(this.props.getPathname);
 
@@ -52,45 +45,38 @@ class UserComments extends Component {
   getComments = () => {
     const id = this.props.getPathname;
     const { user } = this.state;
-    console.log(this.props)
+    console.log(this.props);
 
     axios
-    .get(`${process.env.REACT_APP_API_URL}/comments${id}`)
-    .then(response => {
-     
-      this.setState({ userComments: response.data.comments });
-      console.log(response);
-    
-      this.findCommon()
+      .get(`${process.env.REACT_APP_API_URL}/comments${id}`)
+      .then(response => {
+        this.setState({ userComments: response.data.comments });
+        console.log(response);
 
+        this.findCommon();
       })
       .catch(err => {
-          console.log(err);
-        });
-        }
-
+        console.log(err);
+      });
+  };
 
   findCommon = () => {
+    //    let  theComments  = this.state.theComments;
+    let userComments = this.state.userComments;
 
-//    let  theComments  = this.state.theComments;
-    let  userComments  = this.state.userComments
+    axios.get(`${process.env.REACT_APP_API_URL}/comments`).then(response => {
+      console.log(response);
 
-    axios
-    .get(`${process.env.REACT_APP_API_URL}/comments`)
-    .then(response => {
+      let theComments = response.data;
 
-        console.log(response)
-    
-    let theComments = response.data
+      let matchingComments = theComments
+        .filter(comment => userComments.includes(comment._id))
+        .map(comment => comment);
 
-    let matchingComments = theComments.filter(comment => userComments.includes(comment._id)).map(comment => comment)
-     
-    this.setState({userCom: matchingComments})
+      this.setState({ userCom: matchingComments });
+    });
+  };
 
-    })
-  }
-   
-  
   // updateComment = () => {
   //     const comment  = this.state.input;
 
@@ -111,32 +97,29 @@ class UserComments extends Component {
   //}
 
   render() {
-    const commentsList = this.state.userCom.reverse() 
+    const commentsList = this.state.userCom.reverse();
 
     return (
-        <div>
-      <div id="comments-wrapper">
-        <h3>Comments</h3>
-        <div className="comment">
-          <PostComment getPathname={this.props.getPathname} getComments={this.getComments} />
-          <div>
-            {
-                             
-                  commentsList.map((comment, index) => {
-                  return (
-                    <div key={comment._id} className="comment">
-                      <h3>{comment.comment}</h3>
-                      <hr />
-                   
-                </div>
-              );
-            })
-          }
-            
+      <div>
+        <div id="comments-wrapper">
+          <h3>Comments</h3>
+          <div className="comment">
+            <PostComment
+              getPathname={this.props.getPathname}
+              getComments={this.getComments}
+            />
+            <div>
+              {commentsList.map((comment, index) => {
+                return (
+                  <div key={comment._id} className="comment">
+                    <h3>{comment.comment}</h3>
+                    <hr />
+                  </div>
+                );
+              })}
+            </div>
           </div>
-         
         </div>
-      </div>
       </div>
     );
   }

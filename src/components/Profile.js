@@ -16,7 +16,7 @@ class Profile extends Component {
     fileName: "",
     path: "",
     objects: [],
-    backgroundImage:"",
+    backgroundImage: "",
     // background: null,
     bkgImages: [],
     fileExists: true
@@ -31,18 +31,18 @@ class Profile extends Component {
   // onBkgChangeHandler = e => {
   //   this.setState({
   //     background: e.target.files[0]
-     
+
   //   });
   // };
 
   handleSubmit = e => {
     e.preventDefault();
-    let id = this.props.user._id
-    console.log(this.props.user._id)
+    let id = this.props.user._id;
+    console.log(this.props.user._id);
     let { file } = this.state;
     let formData = new FormData();
     formData.append("file", file);
-    
+
     const config = {
       headers: {
         "content-type": "multipart/form-data"
@@ -50,20 +50,22 @@ class Profile extends Component {
     };
 
     axios
-      .post(`${process.env.REACT_APP_API_URL}/users/upload/${id}`, formData, config)
+      .post(
+        `${process.env.REACT_APP_API_URL}/users/upload/${id}`,
+        formData,
+        config
+      )
       .then(res => {
         alert("The file was successfully uploaded");
-        console.log(res)
-      const theFile = this.fileUpload.files[0];
-      this.setState({ fileName:theFile.name, objects: res.data.objects });
-      this.uploadFile()
-      
+        console.log(res);
+        const theFile = this.fileUpload.files[0];
+        this.setState({ fileName: theFile.name, objects: res.data.objects });
+        this.uploadFile();
       })
       .catch(error => {
-          console.log(error)
+        console.log(error);
       });
-
-  }
+  };
 
   // handleImageSubmit = e => {
   //   e.preventDefault();
@@ -87,7 +89,7 @@ class Profile extends Component {
   //     const theFile = this.backgroundUpload.files[0];
   //     this.setState({ backgroundImage:theFile.name, bkgImages: res.data.backgrounds });
   //     this.uploadBackground()
-      
+
   //     })
   //     .catch(error => {
   //         console.log(error)
@@ -98,13 +100,13 @@ class Profile extends Component {
   // uploadBackground = () => {
   //   console.log(this.state.backgroundImage)
   //   let { backgroundImage } = this.state;
-  
+
   //   var assetImg = document.createElement("img");
   //   assetImg.setAttribute("src", `${process.env.REACT_APP_API_URL}/images/` + backgroundImage);
   //   assetImg.setAttribute("id", backgroundImage);
   //   assetImg.setAttribute("crossorigin", "anonymous");
   //   document.getElementById("assets-id").appendChild(assetImg)
-    
+
   //   var skyId = '#' + assetImg.id;
 
   //   var bkgImg = document.createElement('a-sky')
@@ -113,10 +115,25 @@ class Profile extends Component {
   //   console.log(bkgImg);
   // }
 
+  // uploadMusic = () => {
+  //   console.log(this.state.backgroundMusic)
+  //   let { backgroundMusic } = this.state;
+
+  //   var assetMusic = document.createElement("a-sound");
+  //   assetMusic.setAttribute("src", src: url(`${process.env.REACT_APP_API_URL}/music/` + backgroundMusic));
+  //   assetMusic.setAttribute("id", backgroundMusic);
+  //   assetMusic.setAttribute("crossorigin", "anonymous");
+  //   document.getElementById("scene").appendChild(assetMusic)
+
+  // }
+
   uploadFile = () => {
     let { fileName } = this.state;
     var assetEl = document.createElement("a-asset-item");
-    assetEl.setAttribute("src", `${process.env.REACT_APP_API_URL}/images/` + fileName);
+    assetEl.setAttribute(
+      "src",
+      `${process.env.REACT_APP_API_URL}/images/` + fileName
+    );
     assetEl.setAttribute("id", fileName);
     document.getElementById("assets-id").appendChild(assetEl);
 
@@ -127,7 +144,7 @@ class Profile extends Component {
     entityEl.setAttribute("gltf-model", gltfModelId);
     entityEl.setAttribute("id", "rig");
     entityEl.setAttribute("wasd-controls");
-   
+
     // entityEl.setAttribute("wasd-controls", "adInverted:false");
     // entityEl.setAttribute("wasd-controls", "wsInverted:false");
     entityEl.setAttribute("wasd-controls", "acceleration:5005");
@@ -135,14 +152,13 @@ class Profile extends Component {
     entityEl.setAttribute("look-controls");
     // entityEl.setAttribute(
     //   "sound",
-    //   "src: url(12 Rokthaboat[Twrk].mp3); autoplay: true"
+    //   "src: url(Will.mpeg);"
     // );
     document.getElementById("scene").appendChild(entityEl);
     console.log(entityEl);
-    
   };
 
-  showForm = (e) => {
+  showForm = e => {
     e.preventDefault();
     const editProfileForm = document.getElementById("edit-profile-form");
     editProfileForm.style.display = "block";
@@ -151,20 +167,20 @@ class Profile extends Component {
   };
 
   showCreateButton = () => {
-      const createButton = document.getElementById("create-btn");
-      createButton.style.display = "block";
-      const uploadForm = document.getElementById("upload");
-      uploadForm.style.display = "none";
-  }
+    const createButton = document.getElementById("create-btn");
+    createButton.style.display = "block";
+    const uploadForm = document.getElementById("upload");
+    uploadForm.style.display = "none";
+  };
 
-//   showBkgCreateButton = () => {
-//     const createButton = document.getElementById("create-bkg-btn");
-//     createButton.style.display = "block";
-//     const uploadForm = document.getElementById("upload-bkg");
-//     uploadForm.style.display = "none";
-// }
+  //   showBkgCreateButton = () => {
+  //     const createButton = document.getElementById("create-bkg-btn");
+  //     createButton.style.display = "block";
+  //     const uploadForm = document.getElementById("upload-bkg");
+  //     uploadForm.style.display = "none";
+  // }
 
-  showUpload = (e) => {
+  showUpload = e => {
     e.preventDefault();
     const uploadForm = document.getElementById("upload");
     uploadForm.style.display = "block";
@@ -202,7 +218,7 @@ class Profile extends Component {
         username,
         email,
         space_name,
-        theme,
+        theme
       })
       .then(response => {
         console.log("Hello", response.data);
@@ -214,60 +230,56 @@ class Profile extends Component {
       });
   };
 
-
   deleteObject = () => {
-   let modelId = this.state.objects.pop()
+    let modelId = this.state.objects.pop();
 
+    axios
+      .delete(`${process.env.REACT_APP_API_URL}/users/deleteObject/${modelId}`)
+      .then(response => {
+        this.setState({ path: null, fileName: null });
+        let file = document.getElementById("rig");
+        file.remove();
+        console.log("Hello", response);
+        //   const user = response.data;
+        //   console.log(user)
+        this.setState({ path: null, file: null });
+        //   this.setState({initalComments: user.comments})
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
 
-axios.delete(`${process.env.REACT_APP_API_URL}/users/deleteObject/${modelId}`)
-.then(response => {
-    
-    this.setState({path: null, fileName:null})
-    let file = document.getElementById('rig')
-    file.remove()
-      console.log("Hello", response);
-    //   const user = response.data;
-    //   console.log(user)
-      this.setState({path: null, file:null})
-    //   this.setState({initalComments: user.comments})
-  })
-  .catch(err => {
-      console.log(err);
-    });
+  //   deleteBackground = () => {
+  //     let backgroundId = this.state.backgroundId
+  //     console.log(this.state.backgroundId)
 
-  }
+  //  axios.delete(`${process.env.REACT_APP_API_URL}/users/deleteBackground/${backgroundId}`)
+  //  .then(response => {
 
-//   deleteBackground = () => {
-//     let backgroundId = this.state.backgroundId
-//     console.log(this.state.backgroundId)
- 
-//  axios.delete(`${process.env.REACT_APP_API_URL}/users/deleteBackground/${backgroundId}`)
-//  .then(response => {
-     
-//      this.setState({ backgroundImage:null})
-//      let file = document.getElementById(this.state.backgroundImage)
-//      file.remove()
-//        console.log("Hello", response);
-     //   const user = response.data;
-     //   console.log(user)
-     //   this.setState({path: null, file:null})
-     //   this.setState({initalComments: user.comments})
+  //      this.setState({ backgroundImage:null})
+  //      let file = document.getElementById(this.state.backgroundImage)
+  //      file.remove()
+  //        console.log("Hello", response);
+  //   const user = response.data;
+  //   console.log(user)
+  //   this.setState({path: null, file:null})
+  //   this.setState({initalComments: user.comments})
   //  })
   //  .catch(err => {
   //      console.log(err);
   //    });
- 
+
   //  }
 
-   noFile = (e) => {
-     e.preventDefault()
+  noFile = e => {
+    e.preventDefault();
     if (this.state.fileExists === false) {
-
     }
-   }
-  
+  };
+
   componentDidMount = () => {
-    let id = this.props.user._id  
+    let id = this.props.user._id;
 
     axios
       .get(`${process.env.REACT_APP_API_URL}/users/${id}`)
@@ -281,27 +293,28 @@ axios.delete(`${process.env.REACT_APP_API_URL}/users/deleteObject/${modelId}`)
           theme: user.theme,
           comments: user.comments
         });
-        
       })
       .catch(err => {
         console.log(err);
       });
-  
-      axios
+
+    axios
       .get(`${process.env.REACT_APP_API_URL}/users/filename`)
       .then(response => {
         console.log("Hello", response.data);
-        let newObjects = response.data.map(object => object._id )
-       
+        let newObjects = response.data.map(object => object._id);
+
         this.setState({
-          path:null, fileName: response.data.pop().path, objects: newObjects
+          path: null,
+          fileName: response.data.pop().path,
+          objects: newObjects
         });
-      this.uploadFile()
-      
-      if(this.state.fileName === "") {
-        this.setState({fileExists: false})
-      }
-        console.log(this.state.path)
+        this.uploadFile();
+
+        if (this.state.fileName === "") {
+          this.setState({ fileExists: false });
+        }
+        console.log(this.state.path);
       })
       .catch(err => {
         console.log(err);
@@ -317,14 +330,13 @@ axios.delete(`${process.env.REACT_APP_API_URL}/users/deleteObject/${modelId}`)
     //     backgroundImage: response.data[0].path, background:newBackground, backgroundId: backgroundId
     //   });
     //   this.uploadBackground()
-      
+
     //   console.log(this.state.path)
     // })
     // .catch(err => {
     //   console.log(err);
     // });
-  }
-  
+  };
 
   // startBackground = () => {
   //   axios
@@ -337,7 +349,7 @@ axios.delete(`${process.env.REACT_APP_API_URL}/users/deleteObject/${modelId}`)
   //       backgroundImage: response.data[0].path, background:newBackground, backgroundId: backgroundId
   //     });
   //     this.uploadBackground()
-      
+
   //     console.log(this.state.path)
   //   })
   //   .catch(err => {
@@ -348,15 +360,16 @@ axios.delete(`${process.env.REACT_APP_API_URL}/users/deleteObject/${modelId}`)
 
   render() {
     return (
-       
-      <div 
-      // onClick={this.startBackground}
-       id="profile-wrapper"> 
-          <div className="container env" >
-           <div className="profile-details extra-details">
-            <h1 style={{textAlign:"left", textDecoration:"underline"}}>{this.state.space_name}</h1>
-            <div id="user-details" >
-           
+      <div
+        // onClick={this.startBackground}
+        id="profile-wrapper"
+      >
+        <div className="container env">
+          <div className="profile-details extra-details">
+            <h1 style={{ textAlign: "left", textDecoration: "underline" }}>
+              {this.state.space_name}
+            </h1>
+            <div id="user-details">
               <h3>
                 Username: <span>{this.state.username}</span>{" "}
               </h3>
@@ -367,11 +380,21 @@ axios.delete(`${process.env.REACT_APP_API_URL}/users/deleteObject/${modelId}`)
                 Theme: <span>{this.state.theme}</span>
               </h3>
 
-              <div style={{marginTop:"2em", fontSize:"10px"}}>
-              <a href="" onClick={this.showForm} >
-              <h2 style={{color:"white", border:"1px solid white", width:"45%", padding:"10px", textAlign:"center"}}>Edit Profile</h2>
-            </a>
-            </div>
+              <div style={{ marginTop: "2em", fontSize: "10px" }}>
+                <a href="" onClick={this.showForm}>
+                  <h2
+                    style={{
+                      color: "white",
+                      border: "1px solid white",
+                      width: "45%",
+                      padding: "10px",
+                      textAlign: "center"
+                    }}
+                  >
+                    Edit Profile
+                  </h2>
+                </a>
+              </div>
             </div>
             <form id="edit-profile-form" onSubmit={this.editProfile}>
               <label>Username:</label>
@@ -402,10 +425,10 @@ axios.delete(`${process.env.REACT_APP_API_URL}/users/deleteObject/${modelId}`)
                 name="theme"
                 onChange={this.handleInput}
               ></input> */}
-              <button style={{color:"white"}}>Save</button>
-            </form> 
-            </div>
-            {/* <div id="create-delete" className="profile-details">
+              <button style={{ color: "white" }}>Save</button>
+            </form>
+          </div>
+          {/* <div id="create-delete" className="profile-details">
             <button style={{color:"white", width:"70%"}} id="create-bkg-btn" onClick={this.showImageUpload}>Change Background</button>
             <div  id="upload-bkg" style={{display:"none"}}>
                <ul className="env" style={{ display:"flex", flexDirection:"row", padding:"1em"}}>
@@ -455,57 +478,151 @@ axios.delete(`${process.env.REACT_APP_API_URL}/users/deleteObject/${modelId}`)
                    </li> 
                 </ul>
               </div> */}
-            <button id="create-btn" onClick={this.showUpload}>Create / Delete Object</button>
-            <div className="profile-details" id="upload">
-            
-                <ul className="env" style={{ display:"flex", flexDirection:"row", padding:"1em", marginTop:"1.5em"}}>
-                    <li>
-                        <h2>Upload a 3D object into your space </h2>
-                        <p style={{fontSize:"12px"}}>(.glb format)</p>
-                       
-                       
-                        {  this.state.fileExists ?
-                        <form onSubmit={this.handleSubmit} encType="multipart/form-data" >
-                        <input
-                            onChange={this.onChangeHandler}
-                            type="file"
-                            name="file"
-                            ref={ref => (this.fileUpload = ref)}
-                            style={{paddingLeft:"25%", paddingTop:"2%"}}
-                        />
-                        <button onClick={this.showCreateButton} type="submit" value="upload" style={{color:"white"}}>
-                            Save
-                        </button>
-                        <a style={{border:"1px solid white", color:"white", backgroundColor:"#2ab193e5", width:"60%", textAlign:"center", padding:"0.6em", margin:"1em auto", cursor:"pointer"}} onClick={this.deleteObject}>Delete current object</a>
-                        </form> 
 
-                        :
-                        <form onSubmit={this.noFile} encType="multipart/form-data" >
-                        <input
-                            onChange={this.onChangeHandler}
+          {/* <div id="create-delete" className="profile-details">
+            <button style={{color:"white", width:"70%"}} id="create-bkg-btn" onClick={this.showImageUpload}>Change Background</button>
+            <div  id="upload-music" style={{display:"none"}}>
+               <ul className="env" style={{ display:"flex", flexDirection:"row", padding:"1em"}}>
+                                     
+                    <li>
+                
+                        <h2>Upload Background Music into your Space </h2>
+                        
+                        {  this.state.fileExists ?
+                          <form onSubmit={this.handleImageSubmit} encType="multipart/form-data" >
+                          <input
+                            onChange={this.onMusicChangeHandler}
                             type="file"
                             name="file"
-                            ref={ref => (this.fileUpload = ref)}
+                            ref={ref => (this.musicUpload = ref)}
                             style={{paddingLeft:"20%"}}
                         />
-                        <button onClick={this.showCreateButton} type="submit" value="upload" style={{color:"white"}}>
+                          
+                        <button onClick={this.showMusicCreateButton} type="submit" value="upload" style={{color:"white"}}>
                             Save
                         </button>
-                        <a style={{border:"1px solid white", color:"white", backgroundColor:"#2ab193e5", width:"60%", textAlign:"center", padding:"0.6em", margin:"1em auto", cursor:"pointer"}} onClick={this.deleteObject}>Delete current object</a>
-                        </form> 
-                        }  
                         
-                    </li> 
+                        <a onClick={this.deleteMusic} style={{border:"1px solid white", color:"white", backgroundColor:"transparent", width:"60%", textAlign:"center", padding:"1em", margin:"0 auto"}}>
+                        Delete current music
+                        </a>
+                        </form>
+                          :  
+                         <form onSubmit={this.noFile} encType="multipart/form-data" >
+                         <input
+                            onChange={this.onMusicChangeHandler}
+                            type="file"
+                            name="file"
+                            ref={ref => (this.musicUpload = ref)}
+                            style={{paddingLeft:"20%"}}
+                        />
+                          
+                        <button onClick={this.showMusicCreateButton} type="submit" value="upload" style={{color:"white"}}>
+                            Save
+                        </button>
+                        
+                        <a onClick={this.deleteMusic} style={{border:"1px solid white", color:"white", backgroundColor:"transparent", width:"60%", textAlign:"center", padding:"1em", margin:"0 auto"}}>
+                        Delete current music
+                        </a>
+                        </form>
+                        }
+             
+                   </li> 
                 </ul>
-              </div>   
-         </div>
-       
-       
-        
-        <Comments comments={this.state.comments}/>
+              </div> */}
 
-       
-       
+          <button id="create-btn" onClick={this.showUpload}>
+            Create / Delete Object
+          </button>
+          <div className="profile-details" id="upload">
+            <ul
+              className="env"
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                padding: "1em",
+                marginTop: "1.5em"
+              }}
+            >
+              <li>
+                <h2>Upload a 3D object into your space </h2>
+                <p style={{ fontSize: "12px" }}>(.glb format)</p>
+
+                {this.state.fileExists ? (
+                  <form
+                    onSubmit={this.handleSubmit}
+                    encType="multipart/form-data"
+                  >
+                    <input
+                      onChange={this.onChangeHandler}
+                      type="file"
+                      name="file"
+                      ref={ref => (this.fileUpload = ref)}
+                      style={{ paddingLeft: "25%", paddingTop: "2%" }}
+                    />
+                    <button
+                      onClick={this.showCreateButton}
+                      type="submit"
+                      value="upload"
+                      style={{ color: "white" }}
+                    >
+                      Save
+                    </button>
+                    <a
+                      style={{
+                        border: "1px solid white",
+                        color: "white",
+                        backgroundColor: "#2ab193e5",
+                        width: "60%",
+                        textAlign: "center",
+                        padding: "0.6em",
+                        margin: "1em auto",
+                        cursor: "pointer"
+                      }}
+                      onClick={this.deleteObject}
+                    >
+                      Delete current object
+                    </a>
+                  </form>
+                ) : (
+                  <form onSubmit={this.noFile} encType="multipart/form-data">
+                    <input
+                      onChange={this.onChangeHandler}
+                      type="file"
+                      name="file"
+                      ref={ref => (this.fileUpload = ref)}
+                      style={{ paddingLeft: "20%" }}
+                    />
+                    <button
+                      onClick={this.showCreateButton}
+                      type="submit"
+                      value="upload"
+                      style={{ color: "white" }}
+                    >
+                      Save
+                    </button>
+                    <a
+                      style={{
+                        border: "1px solid white",
+                        color: "white",
+                        backgroundColor: "#2ab193e5",
+                        width: "60%",
+                        textAlign: "center",
+                        padding: "0.6em",
+                        margin: "1em auto",
+                        cursor: "pointer"
+                      }}
+                      onClick={this.deleteObject}
+                    >
+                      Delete current object
+                    </a>
+                  </form>
+                )}
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <Comments comments={this.state.comments} />
       </div>
     );
   }
