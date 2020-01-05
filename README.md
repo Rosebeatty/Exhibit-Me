@@ -57,10 +57,8 @@ A social network created with React, A-Frame, MongoDB and NodeJs for artists and
 | `/auth/signup`            | SignupPage           | anon only   | Signup form, link to login, navigate to homepage after signup |
 | `/auth/login`             | LoginPage            | anon only   | Login form, link to signup, navigate to homepage after login |
 | `/auth/logout`            | n/a                  | anon only   | Navigate to homepage after logout, expire session            |
-| `/profile`      | ProfilePage | user only   | Shows personal profile               |
-| `/profile/edit-profile` | ProfilePage | user only   | Edits profile                                     |
-| `/:user-id`   | UserPage | user only   | Gets specified user profile    |
-
+| `/profile`      | ProfilePage | user only   | Shows personal profile |
+| `/:user-id`   | UserPage | user only   | Gets specified user profile |
 
 
 ## Components
@@ -72,7 +70,7 @@ A social network created with React, A-Frame, MongoDB and NodeJs for artists and
 - UserPage
 - Navbar
 - VRScene
-- UserVRSCene
+- UserVRScene
 - PostComment
 - UserComments
 - SearchBar
@@ -89,23 +87,6 @@ A social network created with React, A-Frame, MongoDB and NodeJs for artists and
   - auth.logout()
   - auth.me()
   - auth.getUser() // synchronous
-  
-  
-  
-  User Service
-  
-  - user.update(id)
-  - user.delete(id)
-  - user.get(id)
-  
-  
-  
-  3D Object Service
-  
-  - object.upload()
-  - object.delete(id)
-  - object.get(id)
-  
   
 
 <br>
@@ -181,16 +162,14 @@ Comment model
 | DELETE   | `/users/deleteObject/:id` | {id}              | 201            | 400          | Deletes user's object from environment |
 | GET    | `/users/:id` | {id}                         | 201            | 400          | Gets user info                  |
 | PUT       | `/users/update/:id`     | {id} |                | 400          | Updates user info                        |
-| DELETE   | `/users/delete/:id`      | {id}                         |                |              | Deletes user                        | | GET   | `/users/filename/`      | {id}                         |     |              | Gets filename of the last object saved in database             |
+| DELETE   | `/users/delete/:id`      | {id}                         |                |              | Deletes user                        | | GET   | `/users/filename/`      | {id}                         |     |              | Gets filename of the last object saved in database  |
 | GET   | `/users/filename/:id`      | {id}                          | |              | Gets filename of object from user profile           |
 
-
 | POST        | `/comments` | {id}     | 200            | 404          | Find All Comments                  |
-| POST        | `/comments/:id` | {id}     | 200            | 404          | Find All Comments Connected to User  
-
+| POST        | `/comments/:id` | {id}     | 200            | 404                   | Find All Comments Connected to User  |
 | POST        | `/comments/create/:id` | {id}     | 200            | 404          | Adds comment to specified user                  |
-| PUT         | `/comments/update/:id` | {id}                  | 201            | 400          | Edits specified comment                           |
-| DELETE      | `/comments/delete/:id` | {id}                         | 200            | 400          | Deletes specified comment                    |
+| PUT         | `/comments/update/:id` | {id}                  | 201            | 400          | Edits specified comment                    |
+| DELETE      | `/comments/delete/:id` | {id}                         | 200            | 400          | Deletes specified comment          |
 
 <br>
 
