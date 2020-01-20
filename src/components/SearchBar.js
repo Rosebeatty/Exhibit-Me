@@ -33,7 +33,7 @@ class SearchBar extends Component {
     const {referrer} = this.state;
 
     return (
-      <li onClick={this.goHome}>
+      <li onClick={this.goHome} className='nav-item' style={{"display":"flex"}}>
         <input
           id="search-input"
           type="text"

@@ -12,6 +12,7 @@ class UserPage extends Component {
     fileName: "",
     objects: [],
     file: null,
+    objectId:"",
     // path: "",
     theme: "",
     selected: [],
@@ -41,6 +42,7 @@ class UserPage extends Component {
 
   uploadFile = () => {
     let { fileName } = this.state;
+    console.log(this.state.fileName)
     var assetEl = document.createElement("a-asset-item");
     assetEl.setAttribute(
       "src",
@@ -94,11 +96,12 @@ class UserPage extends Component {
       });
 
     this.getAllUsers();
+    
   };
 
 
   getFile = () => {
-    console.log(this.state.objectId);
+    console.log(this.state.objects);
     let objectId = this.state.objects.pop();
 
     axios
@@ -114,7 +117,7 @@ class UserPage extends Component {
       .catch(err => {
         console.log(err);
       });
-    this.uploadFile();
+    
   };
 
   getAllUsers = () => {
@@ -128,6 +131,7 @@ class UserPage extends Component {
         // let backgroundImg = `/${users.theme}.jpg`
         // console.log(bkg)
         this.setState({ users: users, selected: users });
+        this.getFile()
         // this.themeAndUserEqual()
       })
       .catch(err => console.log(err));
@@ -151,13 +155,13 @@ class UserPage extends Component {
 
   render() {
     return (
-      <div id="hover" onClick={this.getFile}>
+      <div id="hover" >
         <Navbar filterUsers={this.filterUsers} />
         <div style={{ backgroundColor: "rgba(255, 255, 255, 0.04)" }}>
           <h2 style={{ padding: "1em 0 0.5em 0" }}>
             Welcome to {this.state.user.username}'s Space{" "}
           </h2>
-          <UserVRScene theme={this.state.theme} />
+          <UserVRScene uploadFile={this.uploadFile} theme={this.state.theme} />
           {/* <UserProfile getPathname = {this.getPathname}/> */}
           <UserComments getPathname={this.state.userpath} />
         </div>

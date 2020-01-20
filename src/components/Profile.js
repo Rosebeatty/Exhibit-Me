@@ -19,7 +19,7 @@ class Profile extends Component {
     backgroundImage: "",
     // background: null,
     bkgImages: [],
-    fileExists: true
+    fileExists: false
   };
 
   onChangeHandler = e => {
@@ -28,15 +28,15 @@ class Profile extends Component {
     });
   };
 
-  // onBkgChangeHandler = e => {
-  //   this.setState({
-  //     background: e.target.files[0]
+  onBkgChangeHandler = e => {
+    this.setState({
+      background: e.target.files[0]
 
-  //   });
-  // };
+    });
+  };
 
   handleSubmit = e => {
-    e.preventDefault();
+    e.preventDefault()
     let id = this.props.user._id;
     console.log(this.props.user._id);
     let { file } = this.state;
@@ -60,6 +60,7 @@ class Profile extends Component {
         console.log(res);
         const theFile = this.fileUpload.files[0];
         this.setState({ fileName: theFile.name, objects: res.data.objects });
+      
         this.uploadFile();
       })
       .catch(error => {
@@ -272,11 +273,12 @@ class Profile extends Component {
 
   //  }
 
-  noFile = e => {
-    e.preventDefault();
-    if (this.state.fileExists === false) {
-    }
-  };
+  // noFile = e => {
+  //   if (this.state.fileExists === false) {
+  //     e.preventDefault();
+
+  //   }
+  // };
 
   componentDidMount = () => {
     let id = this.props.user._id;
@@ -312,9 +314,9 @@ class Profile extends Component {
         this.uploadFile();
 
         if (this.state.fileName === "") {
+          console.log("Hello")
           this.setState({ fileExists: false });
         }
-        console.log(this.state.path);
       })
       .catch(err => {
         console.log(err);
@@ -359,6 +361,9 @@ class Profile extends Component {
   // }
 
   render() {
+
+    const enabled = this.state.file !== null 
+
     return (
       <div
         // onClick={this.startBackground}
@@ -366,7 +371,7 @@ class Profile extends Component {
       >
         <div className="container env">
           <div className="profile-details extra-details">
-            <h1 style={{ textAlign: "left", textDecoration: "underline" }}>
+            <h1 id="space-name">
               {this.state.space_name}
             </h1>
             <div id="user-details">
@@ -380,16 +385,11 @@ class Profile extends Component {
                 Theme: <span>{this.state.theme}</span>
               </h3>
 
-              <div style={{ marginTop: "2em", fontSize: "10px" }}>
+              <div >
                 <a href="" onClick={this.showForm}>
                   <h2
-                    style={{
-                      color: "white",
-                      border: "1px solid white",
-                      width: "45%",
-                      padding: "10px",
-                      textAlign: "center"
-                    }}
+                  id="edit-profile-btn"
+                   
                   >
                     Edit Profile
                   </h2>
@@ -425,7 +425,7 @@ class Profile extends Component {
                 name="theme"
                 onChange={this.handleInput}
               ></input> */}
-              <button style={{ color: "white" }}>Save</button>
+              <button id="save-profile-btn">Save</button>
             </form>
           </div>
           {/* <div id="create-delete" className="profile-details">
@@ -544,10 +544,10 @@ class Profile extends Component {
               }}
             >
               <li>
-                <h2>Upload a 3D object into your space </h2>
-                <p style={{ fontSize: "12px" }}>(.glb format)</p>
+                <h2>Upload a 3D Object Into Your Space </h2>
+                <p style={{ fontSize: "12px", marginBottom:"0.5em" }}>(.glb format)</p>
 
-                {this.state.fileExists ? (
+                {/* {this.state.fileExists ? ( */}
                   <form
                     onSubmit={this.handleSubmit}
                     encType="multipart/form-data"
@@ -557,13 +557,14 @@ class Profile extends Component {
                       type="file"
                       name="file"
                       ref={ref => (this.fileUpload = ref)}
-                      style={{ paddingLeft: "25%", paddingTop: "2%" }}
+                      style={{color:"black", backgroundColor:"white", margin:"0 auto", width:"70%" }}
                     />
                     <button
+                      id="save-object-btn"
                       onClick={this.showCreateButton}
                       type="submit"
                       value="upload"
-                      style={{ color: "white" }}
+                      disabled = {!enabled}
                     >
                       Save
                     </button>
@@ -583,7 +584,7 @@ class Profile extends Component {
                       Delete current object
                     </a>
                   </form>
-                ) : (
+                {/* ) : (
                   <form onSubmit={this.noFile} encType="multipart/form-data">
                     <input
                       onChange={this.onChangeHandler}
@@ -594,8 +595,8 @@ class Profile extends Component {
                     />
                     <button
                       onClick={this.showCreateButton}
-                      type="submit"
-                      value="upload"
+                      // type="submit"
+                      // value="upload"
                       style={{ color: "white" }}
                     >
                       Save
@@ -615,8 +616,8 @@ class Profile extends Component {
                     >
                       Delete current object
                     </a>
-                  </form>
-                )}
+                  </form> */}
+                {/* )} */}
               </li>
             </ul>
           </div>

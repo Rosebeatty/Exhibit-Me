@@ -106,7 +106,6 @@ class Home extends Component {
                       >
                         <h3
                           style={{
-                            width: "18%",
                             margin: "0.5em auto",
                             fontSize: "15px",
                             textAlign: "center"

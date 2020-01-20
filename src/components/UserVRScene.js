@@ -35,23 +35,27 @@ class UserVRScene extends Component {
       });
   };
 
-  // upload = () => {
-  //   console.log(this.state.backgroundPath);
-  //     let newImg = document.createElement('img')
-  //     newImg.setAttribute('id', 'sky');
+  upload = () => {
+    console.log(this.state.backgroundPath);
+      let newImg = document.createElement('img')
+      newImg.setAttribute('id', 'sky');
 
-  //     newImg.setAttribute('src', `images/${this.props.theme}.jpg`)
-  //     let sky = document.createElement('a-sky')
-  //     let scene = document.getElementById('scene')
+      newImg.setAttribute('src', `images/${this.props.theme}.jpg`)
+      let sky = document.createElement('a-sky')
+      let scene = document.getElementById('scene')
 
-  //     sky.setAttribute('src', '#sky')
-  //     sky.appendChild(newImg)
-  //     scene.appendChild(sky)
-
-  // }
+      sky.setAttribute('src', '#sky')
+      sky.appendChild(newImg)
+      scene.appendChild(sky)
+      this.props.uploadFile()
+      console.log(this.props);
+      
+  }
 
   startVR = () => {
     let node = document.getElementById("startbtn");
+    
+    this.upload()
     if (node.parentNode) {
       node.parentNode.removeChild(node);
     }
@@ -62,7 +66,7 @@ class UserVRScene extends Component {
 
     return (
       <div className="vrscene">
-        <div id="start" id="myEmbeddedScene" onClick={this.upload}>
+        <div id="start" id="myEmbeddedScene" >
           <button
             id="startbtn"
             style={{
