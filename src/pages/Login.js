@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { withAuth } from "../lib/AuthProvider";
-import Navbar from "../components/Navbar";
 
 class Login extends Component {
   state = { username: "", password: "" };
@@ -21,7 +20,6 @@ class Login extends Component {
 
     return (
       <div>
-        <Navbar />
         <div
           style={{
             backgroundColor: "rgba(255, 255, 255, 0.04)",

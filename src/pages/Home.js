@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { withAuth } from "../lib/AuthProvider";
-import Navbar from "../components/Navbar";
 import Profile from "../components/UserVRScene";
+import queryString from 'query-string';
 
 class Home extends Component {
   state = {
@@ -19,27 +19,25 @@ class Home extends Component {
     axios
       .get(`${process.env.REACT_APP_API_URL}/users`)
       .then(response => {
-        console.log(response.data);
         const users = response.data;
         let themes = users.map(user => user.theme);
         // let bkg = themes.map(theme => theme )
         // let backgroundImg = `/${users.theme}.jpg`
-        // console.log(bkg)
         this.setState({ users: users, selected: users, themes: themes });
         // this.themeAndUserEqual()
+        this.handleSearch()
       })
       .catch(err => console.log(err));
   };
 
-  componentDidMount = () => {
-    this.getAllUsers();
-    console.log(this.state.theme);
+  componentDidMount = async () => {
+    await this.getAllUsers();
+    window.scrollTo(0,0);
+ 
   };
 
   filterUsers = input => {
-    console.log(this.state.users);
-    console.log(this.state.selected);
-
+    console.log(input);
     let selected = this.state.users.filter(el => {
       return (
         el.username.toLowerCase().includes(input.toLowerCase()) ||
@@ -47,16 +45,32 @@ class Home extends Component {
         el.space_name.toLowerCase().includes(input.toLowerCase())
       );
     });
-
-    console.log(selected);
+    if (selected.length > 0) {
     this.setState({ selected: selected });
+    }
+    else {
+      return;
+    }
   };
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.location.search !== this.props.location.search) {
+      console.log('updated')
+      this.handleSearch();
+    }  
+  }
+
+  handleSearch = () => {
+    const values = queryString.parse(this.props.location.search)
+    console.log(values)
+    if(values.search) {
+      this.filterUsers(values.search)
+    }
+}
 
   render() {
     return (
       <div>
-        <Navbar filterUsers={this.filterUsers} />
-
         <div
           style={{
             backgroundColor: "rgba(255, 255, 255, 0.04)",
@@ -82,7 +96,7 @@ class Home extends Component {
               <Profile />
             </div>
 
-            {this.state.selected.map(user => {
+            { this.state.selected.map(user => {
               return (
                 <div key={user._id} className="one-user">
                   <Link to={`/${user._id}`}>
@@ -96,15 +110,9 @@ class Home extends Component {
                         paddingBottom: "3.5em"
                       }}
                     >
-                      <h3>{user.space_name} </h3>
-                      <div
-                        style={
-                          {
-                            // display:"flex", flexDirection:"row", width: "30%"
-                          }
-                        }
-                      >
-                        <h3
+                      <h1>{user.space_name} </h1>
+                      <div>
+                        <h2
                           style={{
                             margin: "0.5em auto",
                             fontSize: "15px",
@@ -114,7 +122,7 @@ class Home extends Component {
                           Theme:{user.theme}
                           <br />
                           Created By {user.username}
-                        </h3>
+                        </h2>
 
                         <div className="containers">
                           <img
@@ -125,22 +133,21 @@ class Home extends Component {
                               height: "auto",
                               margin: "0 auto"
                             }}
+                            alt="background"
                           />
                           <div className="overlay">
                             Explore {user.space_name}
                           </div>
                         </div>
-                        {/* <br/>
-                      <h3 style={{ width:"28%", margin:"0.5em 2em", fontSize:"15px", display:"flex"}}>Creator:{user.username}</h3> */}
                       </div>
                     </div>
                   </Link>
                 </div>
               );
-            })}
+            }) }
           </div>
         </div>
-        <footer>Rose Beatty 2019</footer>
+        <footer>Rose Beatty 2020</footer>
       </div>
     );
   }

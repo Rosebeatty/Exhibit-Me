@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { withAuth } from "../lib/AuthProvider";
 import axios from "axios";
-import PostComment from "./PostComment";
+import AddComment from "./AddComment";
 
 class UserComments extends Component {
   state = {
@@ -12,89 +12,61 @@ class UserComments extends Component {
     initialComments: [],
     userComments: [],
     theComments: [],
-    userCom: []
+    userCom: [],
   };
 
   componentDidMount = () => {
-    // console.log(this.props);
-
     const id = this.props.getPathname;
 
-    console.log(this.props);
-
     axios
-      .get(`${process.env.REACT_APP_API_URL}/users${id}`)
-      .then(response => {
-        this.setState({ user: response });
-        console.log(response);
-        this.setState({ userComments: response.data });
+      .get(`${process.env.REACT_APP_API_URL}/users/${id}`)
+      .then((response) => {
+        this.setState({ user: response, userComments: response.data });
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
 
     this.getComments();
-
-    console.log(this.props);
-    console.log(this.props.getPathname);
-
-    // console.log(this.props.user._id)
-    // console.log(this.props.match.params)
   };
 
   getComments = () => {
     const id = this.props.getPathname;
-    const { user } = this.state;
-    console.log(this.props);
 
     axios
-      .get(`${process.env.REACT_APP_API_URL}/comments${id}`)
-      .then(response => {
+      .get(`${process.env.REACT_APP_API_URL}/comments/${id}`)
+      .then((response) => {
         this.setState({ userComments: response.data.comments });
-        console.log(response);
-
         this.findCommon();
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
   };
 
   findCommon = () => {
-    //    let  theComments  = this.state.theComments;
     let userComments = this.state.userComments;
 
-    axios.get(`${process.env.REACT_APP_API_URL}/comments`).then(response => {
-      console.log(response);
-
+    axios.get(`${process.env.REACT_APP_API_URL}/comments`).then((response) => {
       let theComments = response.data;
 
       let matchingComments = theComments
-        .filter(comment => userComments.includes(comment._id))
-        .map(comment => comment);
+        .filter((comment) => userComments.includes(comment._id))
+        .map((comment) => comment);
 
       this.setState({ userCom: matchingComments });
     });
   };
 
-  // updateComment = () => {
-  //     const comment  = this.state.input;
+  commentTimeFromNow = (date1) => {
+    let currentTime = new Date()
+    let months = Math.round(Math.abs(currentTime - new Date (date1)) / (2e3 * 3600 * 365.25));
+    let days = Math.round((currentTime - new Date (date1) ) / (1000*60*60*24));
+    let hours = Math.round((Math.abs(currentTime - new Date (date1) )) / (1000 * 60 * 60));
+    let minutes = Math.round((Math.abs(currentTime - new Date (date1) )) / (1000 * 60));
 
-  //     const userId = this.props.user._id;
-
-  //     axios.patch(`http://localhost:5000/comments/update/${userId}`, {
-  //         comment, userId
-  //     })
-  //     .then(response => {
-  //         console.log("Hello", response.data);
-  //         const user = response.data;
-  //         this.setState({comments: user.comments})
-  //     })
-  //     .catch(err => {
-  //         console.log(err);
-  //       });
-
-  //}
+    return months === 1 ? months + ' month ago' : months > 1 ? months + ' months ago' : days === 1 ? days + ' day ago' : days > 1 ? days + ' days ago' : hours === 1 ? hours + ' hour ago' : hours > 1 ? hours + ' hours ago' : minutes === 1 ? minutes + 'minute ago' : minutes > 1 ? minutes + ' minutes ago' : minutes < 1 ? '1 minute ago' : '1 minute ago';
+  } 
 
   render() {
     const commentsList = this.state.userCom.reverse();
@@ -102,17 +74,18 @@ class UserComments extends Component {
     return (
       <div>
         <div id="comments-wrapper">
-          <h3>Comments</h3>
+          <h3>{commentsList.length} Comments</h3>
           <div className="comment">
-            <PostComment
+            <AddComment
               getPathname={this.props.getPathname}
               getComments={this.getComments}
             />
             <div>
-              {commentsList.map((comment, index) => {
+              {commentsList.map((user, index) => {
                 return (
-                  <div key={comment._id} className="comment">
-                    <h3>{comment.comment}</h3>
+                  <div key={user._id} className="comment">
+                    <h3>{user.comment}</h3>
+                    <h6 style={{paddingTop:"0.5em"}}>{this.commentTimeFromNow(user.created_at)}</h6>
                     <hr />
                   </div>
                 );

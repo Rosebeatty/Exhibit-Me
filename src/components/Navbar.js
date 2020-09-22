@@ -5,14 +5,9 @@ import '../../node_modules/bootstrap/dist/css/bootstrap.min.css'
 import SearchBar from "./SearchBar";
 
 class Navbar extends Component {
-  submitSearch = e => {
-    e.preventDefault();
-    this.props.history.push(`/`);
-  };
-
 
   render() {
-    const { user, logout, isLoggedin } = this.props;
+    const { logout, isLoggedin } = this.props;
     return (
       <div>
         {isLoggedin ? (
@@ -33,21 +28,16 @@ class Navbar extends Component {
               <li className="nav-item" >
                 <Link to="/profile">Profile</Link>
               </li>
-             
               <SearchBar
-                submitSearch={this.submitSearch}
+                submit={this.props.submit}
                 filterUsers={this.props.filterUsers}
               /> 
-             
-              
               <li className="nav-item">
                 <button  id="logout-btn" onClick={logout}>Logout</button>
               </li>
             </ul>
             </div>
-              
           </nav>
-        
         ) : (
           <nav className="nav-style">
             <ul>

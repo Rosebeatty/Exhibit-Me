@@ -5,7 +5,6 @@ import axios from "axios";
 class postComment extends Component {
   constructor(props) {
     super(props);
-
     this.state = {
       input: "",
       initialComments: []
@@ -20,7 +19,6 @@ class postComment extends Component {
     e.preventDefault();
 
     const userId = this.props.getPathname.slice(1);
-    console.log(this.props.getPathname);
     const comment = this.state.input;
 
     axios
@@ -29,11 +27,9 @@ class postComment extends Component {
         userId
       })
       .then(response => {
-        console.log("Hello", response.data);
         const userData = response.data;
         this.props.getComments();
         this.setState({ initialComments: userData });
-        console.log(this.state.initialComments);
       })
       .catch(err => {
         console.log(err);
@@ -51,23 +47,20 @@ class postComment extends Component {
   };
 
   render() {
-    // const {comments} = this.state;
-
     return (
       <form onSubmit={this.handleSubmit}>
+        <label htmlFor="create-comment" className="hidden"></label>
         <input
           id="create-comment"
           onChange={this.handleInput}
           type="text"
-          name="comment"
           value={this.state.input}
           placeholder="Add a public comment..."
         ></input>
-
-        <button className="comments-btns">COMMENT</button>
         <button className="comments-btns" onClick={this.cancelComment}>
           CANCEL
         </button>
+        <button className="comments-btns">COMMENT</button>
       </form>
     );
   }

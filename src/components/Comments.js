@@ -15,8 +15,6 @@ class Comments extends Component {
 
   componentDidMount = () => {
     this.getComments();
-    console.log(this.props);
-    console.log(this.state.comments);
   };
 
   getComments = () => {
@@ -28,8 +26,6 @@ class Comments extends Component {
         //PROBLEM
         const userData = response;
         this.setState({ initialComments: userData.data.comments });
-        console.log(userData);
-        console.log(this.state.initialComments);
         this.findCommon();
       })
       .catch(err => {
@@ -38,7 +34,6 @@ class Comments extends Component {
   };
 
   findCommon = () => {
-    //    let  theComments  = this.state.theComments;
     let initialComments = this.state.initialComments;
 
     axios.get(`${process.env.REACT_APP_API_URL}/comments`).then(response => {
@@ -50,17 +45,12 @@ class Comments extends Component {
 
       this.setState({ comment: matchingComments, comments: theComments });
 
-      console.log(matchingComments);
-      console.log(theComments);
     });
   };
 
   deleteComment = id => {
     const comment = this.state.comment;
-    const newList = this.state.initialComments;
-    console.log(id);
     const commentId = id;
-    console.log("Hello", comment);
 
     let newCommentsList = comment.filter(el => {
       return el._id !== id;
@@ -69,10 +59,6 @@ class Comments extends Component {
     axios
       .delete(`${process.env.REACT_APP_API_URL}/comments/delete/${commentId}`)
       .then(response => {
-        console.log("Hello", response);
-        const user = response.data;
-        console.log(user);
-        //    if (finalCommentsList > 1) {
         this.setState({ comment: newCommentsList });
       })
       .catch(err => {
@@ -80,41 +66,33 @@ class Comments extends Component {
       });
   };
 
-  // updateComment = () => {
-  //     const comment  = this.state.input;
+  commentTimeFromNow = (date1) => {
+    let currentTime = new Date()
+    let months = Math.round(Math.abs(currentTime - new Date (date1)) / (2e3 * 3600 * 365.25));
+    let days = Math.round((currentTime - new Date (date1) ) / (1000*60*60*24));
+    let hours = Math.round((Math.abs(currentTime - new Date (date1) )) / (1000 * 60 * 60));
+    let minutes = Math.round((Math.abs(currentTime - new Date (date1) )) / (1000 * 60));
 
-  //     const userId = this.props.user._id;
+    return months === 1 ? months + ' month ago' : months > 1 ? months + ' months ago' : days === 1 ? days + ' day ago' : days > 1 ? days + ' days ago' : hours === 1 ? hours + ' hour ago' : hours > 1 ? hours + ' hours ago' : minutes === 1 ? minutes + 'minute ago' : minutes > 1 ? minutes + ' minutes ago' : minutes < 1 ? '1 minute ago' : '1 minute ago';
+  } 
 
-  //     axios.patch(`http://localhost:5000/comments/update/${userId}`, {
-  //         comment, userId
-  //     })
-  //     .then(response => {
-  //         console.log("Hello", response.data);
-  //         const user = response.data;
-  //         this.setState({comments: user.comments})
-  //     })
-  //     .catch(err => {
-  //         console.log(err);
-  //       });
-
-  //}
 
   render() {
     const { comment } = this.state;
     const commentsList = comment.reverse();
-
+    
     return (
       <div>
         <div id="comments-wrapper">
-          <h3>Comments</h3>
+          <h3>{commentsList.length} Comments</h3>
           <div className="comment">
             <AddComment getComments={this.getComments} />
             <div>
-              {commentsList.map((user, index) => {
+              {commentsList.map((user, i) => {
                 return (
                   <div key={user._id} className="comment">
                     <h3>{user.comment} </h3>
-
+                    <h6 style={{paddingTop:"0.5em"}}>{this.commentTimeFromNow(user.created_at)}</h6>
                     <img
                       style={{
                         marginTop: "-1.5em",
@@ -123,15 +101,13 @@ class Comments extends Component {
                         display: "block",
                         cursor: "pointer"
                       }}
+                      alt='delete'
                       src="trash.png"
                       id="delete-btn"
                       className="comments-btns"
                       onClick={e => this.deleteComment(user._id)}
                     />
-
                     <hr />
-
-                    {/* <DeleteComment getComments={this.getComments}/> */}
                   </div>
                 );
               })}

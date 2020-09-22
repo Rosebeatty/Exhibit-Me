@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { withAuth } from "../lib/AuthProvider";
-import Navbar from "../components/Navbar";
 
 class Signup extends Component {
   state = {
@@ -10,7 +9,6 @@ class Signup extends Component {
     space_name: "",
     theme: "",
     email: "",
-    
   };
 
   handleFormSubmit = event => {
@@ -50,7 +48,6 @@ class Signup extends Component {
     } = this.state;
     return (
       <div>
-        <Navbar />
         <div
           style={{
             backgroundColor: "rgba(255, 255, 255, 0.04)",
@@ -82,13 +79,6 @@ class Signup extends Component {
               value={email}
               onChange={this.handleChange}
             />
-            {/* <label>Your Space's Theme:</label>
-            <input
-              type="text"
-              name="theme"
-              value={theme}
-              onChange={this.handleChange}
-            /> */}
 
             <label>Theme:</label>
             <select

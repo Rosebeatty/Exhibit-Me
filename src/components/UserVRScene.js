@@ -11,82 +11,84 @@ class UserVRScene extends Component {
     this.state = {
       userId: this.props.user._id,
       backgroundPath: "",
-      theme: ""
+      theme: "",
+      isLoaded: false
     };
   }
 
   getUser = () => {
     let id = this.state.userId;
-    //   let objectId = this.props.user.data.objects[0]
 
     axios
       .get(`${process.env.REACT_APP_API_URL}/users/${id}`)
-      .then(response => {
-        console.log("Hello", response.data);
+      .then((response) => {
         const user = response.data;
         this.setState({
           theme: user.theme,
-          backgroundPath: `images/${this.props.theme}.jpg`
+          backgroundPath: `images/${this.props.theme}.jpg`,
         });
-        // this.upload()
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
   };
 
-  upload = () => {
-    console.log(this.state.backgroundPath);
-      let newImg = document.createElement('img')
-      newImg.setAttribute('id', 'sky');
+ 
+  upload = async () => {
+    let newImg = document.createElement("img");
+    newImg.setAttribute("id", "sky");
 
-      newImg.setAttribute('src', `images/${this.props.theme}.jpg`)
-      let sky = document.createElement('a-sky')
-      let scene = document.getElementById('scene')
+    newImg.setAttribute("src", `images/${this.props.theme}.jpg`);
+    let sky = document.createElement("a-sky");
+    let scene = document.getElementById("scene");
 
-      sky.setAttribute('src', '#sky')
-      sky.appendChild(newImg)
-      scene.appendChild(sky)
-      this.props.uploadFile()
-      console.log(this.props);
-      
-  }
-
-  startVR = () => {
-    let node = document.getElementById("startbtn");
+    sky.setAttribute("src", "#sky");
+    sky.appendChild(newImg);
+    scene.appendChild(sky);
+    // this.props.uploadFile();
     
-    this.upload()
+  };
+  
+  startVR = async () => {
+    this.setState({isLoaded:true})
+    let node = document.getElementById("startbtn");
     if (node.parentNode) {
       node.parentNode.removeChild(node);
     }
-  };
+    // if (this.props.objects > 0) {
+       await this.props.getFile()
+      // }
+      await this.upload(); 
+    
+  }
+
 
   render() {
-    console.log(this.props);
+    const {isLoaded} = this.state
 
     return (
       <div className="vrscene">
-        <div id="start" id="myEmbeddedScene" >
+        <div id="start" id="myEmbeddedScene">
           <button
             id="startbtn"
             style={{
               color: "white",
               border: "none",
               margin: "12em auto",
-              fontSize: "20px"
+              fontSize: "20px",
             }}
             onClick={this.startVR}
           >
             CLICK TO START
           </button>
+          {isLoaded ? 
           <Scene id="scene" embedded>
-            <a-assets id="assets-id">{/* <img id="sky" ></img> */}</a-assets>
+            {/* <a-assets id="assets-id">
+            </a-assets> */}
             <a-camera position="40 70 0"></a-camera>
-
-            {/* <a-sky src="#sky"></a-sky> */}
-
-            {/* <a-videosphere src="worm.mp4"></a-videosphere> */}
           </Scene>
+            : null
+          }
         </div>
       </div>
     );

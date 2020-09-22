@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, withRouter } from 'react-router-dom';
 import './App.css';
 
 import Signup from './pages/Signup';
@@ -14,11 +14,15 @@ import PrivateRoute from './components/PrivateRoute';
 
 class App extends Component {
 
-  
+  submitSearch = (e, searchStr) => {
+    e.preventDefault();
+    this.props.history.push(`/?search=${searchStr}`);
+  };
+
   render() {
     return (
       <div className="App">
-       
+       <Navbar submit={this.submitSearch} />
         <Switch>
           <AnonRoute exact path="/signup" component={Signup} />
           <AnonRoute exact path="/login" component={Login} />
@@ -26,10 +30,9 @@ class App extends Component {
           <PrivateRoute exact path="/profile" component={Profile} />
           <PrivateRoute exact path="/:id" component={UserPage} />
         </Switch>
-        </div>
-   
+      </div>
     );
   }
 }
 
-export default App;
+export default withRouter(App);

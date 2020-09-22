@@ -1,7 +1,5 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
 import { withAuth } from "../lib/AuthProvider";
-import Comment from "../lib/comments-service";
 import axios from "axios";
 
 class addComment extends Component {
@@ -22,7 +20,6 @@ class addComment extends Component {
     e.preventDefault();
 
     const userId = this.props.user._id;
-    console.log(userId);
     const comment = this.state.input;
 
     axios
@@ -31,11 +28,9 @@ class addComment extends Component {
         userId
       })
       .then(response => {
-        console.log("Hello", response.data);
         const userData = response.data;
         this.props.getComments();
         this.setState({ initialComments: userData });
-        console.log(this.state.initialComments);
       })
       .catch(err => {
         console.log(err);
@@ -53,10 +48,9 @@ class addComment extends Component {
   };
 
   render() {
-    // const {comments} = this.state;
-
     return (
       <form onSubmit={this.handleSubmit}>
+        <label htmlFor="create-comment" className="hidden"></label>
         <input
           id="create-comment"
           onChange={this.handleInput}
@@ -65,11 +59,10 @@ class addComment extends Component {
           value={this.state.input}
           placeholder="Add a public comment..."
         ></input>
-
-        <button className="comments-btns">COMMENT</button>
         <button className="comments-btns" onClick={this.cancelComment}>
           CANCEL
         </button>
+        <button className="comments-btns">COMMENT</button>
       </form>
     );
   }

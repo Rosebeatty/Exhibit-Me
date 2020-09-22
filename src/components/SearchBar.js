@@ -1,8 +1,5 @@
 import React, { Component } from "react";
-import { Link, Redirect } from "react-router-dom";
 import { withAuth } from "../lib/AuthProvider";
-import axios from "axios";
-import Home from '../pages/Home'
 
 class SearchBar extends Component {
   state = {
@@ -12,49 +9,38 @@ class SearchBar extends Component {
     themes: [],
     selectedThemes: [],
     referrer: ""
-    // goHome: false,
   };
 
-  handleInput = e => {
-    console.log(this.props);
+  handleSearch = (e) => {
     const { value } = e.target;
-    this.props.filterUsers(value);
-    this.setState({ input: value});
-    
-  };
+    this.setState({input: value})
+  }
+
+  searchSubmit = (e) => {
+    this.props.submit(e, this.state.input);
+    this.setState({input: ''});
+  }
 
   goHome = () => {
     this.setState({referrer: '/'});
-    
   }
 
   render() {
-
-    const {referrer} = this.state;
-
     return (
-      <li onClick={this.goHome} className='nav-item' style={{"display":"flex"}}>
+      <li  className='nav-item' style={{"display":"flex"}}>
+       <form onSubmit={(e) => this.searchSubmit(e)} id="search-bar">
+        <label htmlFor="search-input" className="hidden"></label>
         <input
           id="search-input"
-          type="text"
-          name="search"
-          onChange={this.handleInput}
+          type="search"
+          onChange={this.handleSearch}
           value={this.state.input}
           placeholder="Search..."
         />
-        
-        { referrer && <Redirect to={referrer} />}
-        {/* {this.state.input.length > 0 && (
-          <Redirect
-            to={{
-              pathname: "/",
-              state: { selected: this.state.selected }
-            }}
-          />
-        )} */}
-        <button onSubmit={this.submit} type="submit" id="search-button">
+        <button type="submit" id="search-button">
           Search
         </button>
+        </form>
       </li>
     );
   }
