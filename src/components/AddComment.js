@@ -3,14 +3,10 @@ import { withAuth } from "../lib/AuthProvider";
 import axios from "axios";
 
 class addComment extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
+    state = {
       input: "",
-      initialComments: []
     };
-  }
+  
   handleInput = e => {
     const { value } = e.target;
     this.setState({ input: value });
@@ -19,7 +15,7 @@ class addComment extends Component {
   handleSubmit = e => {
     e.preventDefault();
 
-    const userId = this.props.user._id;
+    const userId = this.props.getPathname;
     const comment = this.state.input;
 
     axios
@@ -27,10 +23,8 @@ class addComment extends Component {
         comment,
         userId
       })
-      .then(response => {
-        const userData = response.data;
-        this.props.getComments();
-        this.setState({ initialComments: userData });
+      .then(res => {
+        this.props.getComments()
       })
       .catch(err => {
         console.log(err);
@@ -55,7 +49,6 @@ class addComment extends Component {
           id="create-comment"
           onChange={this.handleInput}
           type="text"
-          name="comment"
           value={this.state.input}
           placeholder="Add a public comment..."
         ></input>

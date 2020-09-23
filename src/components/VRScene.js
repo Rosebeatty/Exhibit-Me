@@ -6,14 +6,11 @@ import "aframe-extras";
 
 
 class VRScene extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      theme:this.props.user.theme,
+    state = {
+      theme: this.props.user.theme,
       backgroundPath:`/images/${this.props.user.theme}.jpg`,
       
     };
-  }
 
   render() {
     return (

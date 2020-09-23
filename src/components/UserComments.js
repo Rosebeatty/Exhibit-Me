@@ -17,7 +17,7 @@ class UserComments extends Component {
 
   componentDidMount = () => {
     const id = this.props.getPathname;
-
+    console.log(this.props);
     axios
       .get(`${process.env.REACT_APP_API_URL}/users/${id}`)
       .then((response) => {
@@ -30,10 +30,10 @@ class UserComments extends Component {
     this.getComments();
   };
 
-  getComments = () => {
+  getComments = async () => {
     const id = this.props.getPathname;
 
-    axios
+    await axios
       .get(`${process.env.REACT_APP_API_URL}/comments/${id}`)
       .then((response) => {
         this.setState({ userComments: response.data.comments });
@@ -44,15 +44,16 @@ class UserComments extends Component {
       });
   };
 
-  findCommon = () => {
+  findCommon = async () => {
     let userComments = this.state.userComments;
 
-    axios.get(`${process.env.REACT_APP_API_URL}/comments`).then((response) => {
+   await axios.get(`${process.env.REACT_APP_API_URL}/comments`).then((response) => {
       let theComments = response.data;
 
       let matchingComments = theComments
         .filter((comment) => userComments.includes(comment._id))
-        .map((comment) => comment);
+        .map((comment) => comment)
+        .reverse();
 
       this.setState({ userCom: matchingComments });
     });
@@ -69,7 +70,7 @@ class UserComments extends Component {
   } 
 
   render() {
-    const commentsList = this.state.userCom.reverse();
+    const commentsList = this.state.userCom;
 
     return (
       <div>
@@ -77,7 +78,7 @@ class UserComments extends Component {
           <h3>{commentsList.length} Comments</h3>
           <div className="comment">
             <AddComment
-              getPathname={this.props.getPathname}
+              getPathname={this.props.getPathname.slice(1)}
               getComments={this.getComments}
             />
             <div>

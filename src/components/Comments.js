@@ -17,15 +17,17 @@ class Comments extends Component {
     this.getComments();
   };
 
-  getComments = () => {
+  getComments = async () => {
     const id = this.props.user._id;
-
-    axios
+    console.log(this.props);
+    await axios
       .get(`${process.env.REACT_APP_API_URL}/comments/${id}`)
       .then(response => {
         //PROBLEM
-        const userData = response;
-        this.setState({ initialComments: userData.data.comments });
+        const userData = response.data;
+        this.setState({ initialComments: userData.comments });
+      })
+      .then(res => {
         this.findCommon();
       })
       .catch(err => {
@@ -41,7 +43,8 @@ class Comments extends Component {
 
       let matchingComments = theComments
         .filter(comment => initialComments.includes(comment._id))
-        .map(comment => comment);
+        .map(comment => comment)
+        .reverse()
 
       this.setState({ comment: matchingComments, comments: theComments });
 
@@ -79,19 +82,19 @@ class Comments extends Component {
 
   render() {
     const { comment } = this.state;
-    const commentsList = comment.reverse();
+    const commentsList = comment
     
     return (
       <div>
         <div id="comments-wrapper">
           <h3>{commentsList.length} Comments</h3>
           <div className="comment">
-            <AddComment getComments={this.getComments} />
+            <AddComment getPathname={this.props.user._id} getComments={this.getComments} />
             <div>
-              {commentsList.map((user, i) => {
+              {[...comment].map((user, i) => {
                 return (
                   <div key={user._id} className="comment">
-                    <h3>{user.comment} </h3>
+                    <h3>{user.comment}</h3>
                     <h6 style={{paddingTop:"0.5em"}}>{this.commentTimeFromNow(user.created_at)}</h6>
                     <img
                       style={{

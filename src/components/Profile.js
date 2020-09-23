@@ -14,7 +14,6 @@ class Profile extends Component {
     file: null,
     fileName: "",
     objects: [],
-    fileExists: false,
   };
 
   onChangeHandler = (e) => {
@@ -27,6 +26,8 @@ class Profile extends Component {
     e.preventDefault();
     let id = this.props.user._id;
     let { file } = this.state;
+
+    if (file) {
     let formData = new FormData();
     formData.append("file", file);
 
@@ -45,13 +46,14 @@ class Profile extends Component {
       .then((res) => {
         alert("The file was successfully uploaded");
         const theFile = this.fileUpload.files[0];
-        this.setState({ fileName: theFile.name, objects: res.data.objects });
+        this.setState(prevState => ({...prevState, fileName: theFile.name, objects: res.data.objects }));
 
         this.uploadFile();
       })
       .catch((error) => {
         console.log(error);
       });
+    }
   };
 
   uploadFile = () => {
@@ -144,14 +146,9 @@ class Profile extends Component {
       });
   };
 
-  // noFile = (e) => {
-  //   if (this.state.fileExists === false) {
-  //     e.preventDefault();
-  //   }
-  // };
-
   componentDidMount = () => {
     let id = this.props.user._id;
+    
     axios
       .get(`${process.env.REACT_APP_API_URL}/users/${id}`)
       .then((response) => {
@@ -233,7 +230,7 @@ class Profile extends Component {
               <li>
                 <h2>Upload a 3D Object Into Your Space </h2>
                 <p style={{ fontSize: "12px", marginBottom: "0.5em" }}>
-                  (.glb format)
+                  (glb format)
                 </p>
 
                 <form
@@ -261,12 +258,13 @@ class Profile extends Component {
                   >
                     Save
                   </button>
+                </form>
                   <button
                     style={{
                       border: "1px solid white",
                       color: "white",
                       backgroundColor: "#2ab193e5",
-                      width: "60%",
+                      width: "40%",
                       textAlign: "center",
                       padding: "0.6em",
                       margin: "1em auto",
@@ -276,7 +274,6 @@ class Profile extends Component {
                   >
                     Delete current object
                   </button>
-                </form>
               </li>
             </ul>
           </div>

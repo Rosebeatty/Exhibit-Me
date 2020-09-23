@@ -33,7 +33,6 @@ class UserVRScene extends Component {
       });
   };
 
- 
   upload = async () => {
     let newImg = document.createElement("img");
     newImg.setAttribute("id", "sky");
@@ -44,9 +43,7 @@ class UserVRScene extends Component {
 
     sky.setAttribute("src", "#sky");
     sky.appendChild(newImg);
-    scene.appendChild(sky);
-    // this.props.uploadFile();
-    
+    scene.appendChild(sky);    
   };
   
   startVR = async () => {
@@ -55,16 +52,12 @@ class UserVRScene extends Component {
     if (node.parentNode) {
       node.parentNode.removeChild(node);
     }
-    // if (this.props.objects > 0) {
-       await this.props.getFile()
-      // }
-      await this.upload(); 
-    
+    await this.props.getFile()
+    await this.upload(); 
   }
 
-
   render() {
-    const {isLoaded} = this.state
+    const { isLoaded } = this.state
 
     return (
       <div className="vrscene">
@@ -81,14 +74,12 @@ class UserVRScene extends Component {
           >
             CLICK TO START
           </button>
-          {isLoaded ? 
+        { isLoaded ? 
           <Scene id="scene" embedded>
-            {/* <a-assets id="assets-id">
-            </a-assets> */}
             <a-camera position="40 70 0"></a-camera>
           </Scene>
             : null
-          }
+        }
         </div>
       </div>
     );
