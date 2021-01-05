@@ -10,7 +10,7 @@
     "aframe": "^1.0.4",
     "aframe-extras": "^6.1.1",
     "aframe-react": "^4.4.0",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "bootstrap": "^4.5.2",
     "jquery": "^3.5.1",
     "query-string": "^6.13.2",
